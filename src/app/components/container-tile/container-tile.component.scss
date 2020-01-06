@@ -1,0 +1,46 @@
+:host {
+  display: block;
+  > div {
+    min-height: 50px;
+    border-style: solid;
+    border: 1px solid #8DF8FF;
+    border-top: none;
+    margin-top: 30px;
+    padding: 0px 8px 8px 8px;
+  }
+  .tile-label {
+    width: calc(100% + 16px);
+    margin-left: -8px;
+    position: relative;
+    top: -16px;
+    span {
+      max-height: 30px;
+      display: block;
+    }
+    span[tile-title]:not(:empty),
+    span[tile-subtitle]:not(:empty),
+    .title,
+    .subtitle {
+      padding: 0 16px;
+    }
+    label {
+      font-size: 1.6rem;
+    }
+    span.top-border {
+      min-width: 16px;
+      background: #8DF8FF;
+      height: 1px;
+      position: relative;
+      &.left {
+        left: -1px;
+      }
+      &.right {
+        right: -1px;
+        &.full {
+          right: initial;
+          margin-right: -1px;
+        }
+      }
+    }
+  }
+}
