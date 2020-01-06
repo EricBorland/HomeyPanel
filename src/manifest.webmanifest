@@ -1,6 +1,6 @@
 {
-  "name": "homey-controller",
-  "short_name": "homey-controller",
+  "name": "homey-panel",
+  "short_name": "homey-panel",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",

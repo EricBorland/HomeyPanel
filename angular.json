@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "homey-controller": {
+    "homey-panel": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/homey-controller",
+            "outputPath": "dist/homey-panel",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -70,18 +70,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "homey-controller:build"
+            "browserTarget": "homey-panel:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "homey-controller:build:production"
+              "browserTarget": "homey-panel:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "homey-controller:build"
+            "browserTarget": "homey-panel:build"
           }
         },
         "test": {
@@ -119,15 +119,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "homey-controller:serve"
+            "devServerTarget": "homey-panel:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "homey-controller:serve:production"
+              "devServerTarget": "homey-panel:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "homey-controller"
+  "defaultProject": "homey-panel"
 }
