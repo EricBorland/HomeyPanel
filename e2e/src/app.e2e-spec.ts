@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('homey-controller app is running!');
+    expect(page.getTitleText()).toEqual('homey-panel app is running!');
   });
 
   afterEach(async () => {
