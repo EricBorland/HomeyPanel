@@ -1,0 +1,16 @@
+{
+  "name": "homey-controller",
+  "short_name": "homey-controller",
+  "theme_color": "#1976d2",
+  "background_color": "#fafafa",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "assets/icons.svg",
+      "sizes": "24x24",
+      "type": "image/svg"
+    }
+  ]
+}

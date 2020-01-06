@@ -1,0 +1,18 @@
+<div>
+  <div fxLayout="row" fxLayoutAlign="start center" class="tile-label">
+    <span class="top-border left"></span>
+    <span #titleRef>
+      <ng-content select="[tile-title]"></ng-content>
+    </span>
+    <label *ngIf="!titleRef.innerHTML.trim()" class="title">{{ title }}</label>
+    <span class="top-border" fxFlex></span>
+    <span #subtitleRef>
+      <ng-content select="[tile-subtitle]"></ng-content>
+    </span>
+    <label *ngIf="subtitle && !subtitleRef.innerHTML.trim()" class="subtitle">
+      {{ subtitle }}
+    </label>
+    <span class="top-border right" [ngClass]="{'full': !subtitle}"></span>
+  </div>
+  <ng-content #tileContent select="[tile-content]"></ng-content>
+</div>
