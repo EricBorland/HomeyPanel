@@ -1,1 +1,5 @@
-<router-outlet></router-outlet>
+<div class="loading-container" *ngIf="loading" fxLayout="row" fxLayoutAlign="center center">
+  <mat-spinner></mat-spinner>
+</div>
+<router-outlet name="header"></router-outlet>
+<router-outlet name="body"></router-outlet>

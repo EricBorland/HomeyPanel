@@ -1,5 +1,17 @@
 :host {
-  max-width: 1440px;
+  max-width: 1880px;
   margin: 0 auto;
   display: block;
+  height: 100%;
+  padding: 16px;
+  > div.loading-container {
+    height: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 10;
+  }
 }

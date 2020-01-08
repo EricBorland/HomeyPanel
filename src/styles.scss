@@ -1,32 +1,83 @@
-
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
+// Custom Angular Material Theming
 @import '~@angular/material/theming';
-// Plus imports for other components in your app.
-
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
 @include mat-core();
-
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$homey-panel-primary: mat-palette($mat-indigo);
-$homey-panel-accent: mat-palette($mat-pink, A200, A100, A400);
-
-// The warn palette is optional (defaults to red).
-$homey-panel-warn: mat-palette($mat-red);
-
-// Create the theme object (a Sass map containing all of the palettes).
-$homey-panel-theme: mat-light-theme($homey-panel-primary, $homey-panel-accent, $homey-panel-warn);
-
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
+$primary-palette: (
+  50: #f1feff,
+  100: #ddfdff,
+  200: #c6fbff,
+  300: #aff9ff,
+  400: #9ef8ff,
+  500: #8df7ff,
+  600: #85f6ff,
+  700: #7af5ff,
+  800: #70f3ff,
+  900: #5df1ff,
+  A100: #ffffff,
+  A200: #ffffff,
+  A400: #ffffff,
+  A700: #e7fdff,
+  contrast: (
+      50: $black-87-opacity,
+      100: $black-87-opacity,
+      200: $black-87-opacity,
+      300: $black-87-opacity,
+      400: $black-87-opacity,
+      500: $black-87-opacity,
+      600: $black-87-opacity,
+      700: $black-87-opacity,
+      800: $black-87-opacity,
+      900: $black-87-opacity,
+      A100: $black-87-opacity,
+      A200: $black-87-opacity,
+      A400: $black-87-opacity,
+      A700: $black-87-opacity,
+  )
+);
+$secondary-palette: (
+  50: #fff9e0,
+  100: #fff1b3,
+  200: #ffe880,
+  300: #ffdf4d,
+  400: #ffd826,
+  500: #ffd100,
+  600: #ffcc00,
+  700: #ffc600,
+  800: #ffc000,
+  900: #ffb500,
+  A100: #ffffff,
+  A200: #fffbf2,
+  A400: #ffeabf,
+  A700: #ffe2a6,
+  contrast: (
+      50: $black-87-opacity,
+      100: $black-87-opacity,
+      200: $black-87-opacity,
+      300: $black-87-opacity,
+      400: $black-87-opacity,
+      500: $black-87-opacity,
+      600: $black-87-opacity,
+      700: $black-87-opacity,
+      800: $black-87-opacity,
+      900: $black-87-opacity,
+      A100: $black-87-opacity,
+      A200: $black-87-opacity,
+      A400: $black-87-opacity,
+      A700: $black-87-opacity,
+  )
+);
+$homey-panel-primary: mat-palette($primary-palette);
+$homey-panel-accent: mat-palette($secondary-palette);
+$homey-panel-theme: mat-dark-theme($homey-panel-primary, $homey-panel-accent);
 @include angular-material-theme($homey-panel-theme);
+$primary: mat-color($homey-panel-primary);
+$accent: mat-color($homey-panel-accent);
 
-/* You can add global styles to this file, and also import other style files */
+/* Angular material overrides */
+mat-spinner svg circle {
+  stroke-width: 2% !important;
+}
+
+/* General styles */
 
 html, body { height: 100%; }
 body {
@@ -36,7 +87,7 @@ body {
   display: block;
   background: #0C2533;
   background-image: url('./assets/bg-pattern-xs.png'), radial-gradient(circle, #0C2533 -10%, #000000 100%);
-  color: #8DF8FF;
+  color: $primary;
   font-weight: lighter;
   overflow: auto;
 }

@@ -1,0 +1,11 @@
+{
+  "/weather": {
+    "target": "https://api.darksky.net/forecast/a54c7394e2edb2060cb30df7a23588bd/41.59128,2.3147713",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/weather": ""
+    }
+  }
+}
