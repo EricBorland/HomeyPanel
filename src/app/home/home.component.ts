@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CoreService, PanelZone } from '../services/core.service';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CoreService, PanelZone, PanelDevice } from '../services/core.service';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +19,10 @@ export class HomeComponent implements OnInit {
     this.zones = await this.core.getZones();
     this.devices = await this.core.getDevices();
     this.panelZones = this.core.getDevicesByZone();
+  }
+
+  drop(event: CdkDragDrop<string[]>, array: PanelZone[] | PanelDevice[]) {
+    moveItemInArray(array, event.previousIndex, event.currentIndex);
   }
 
     /*

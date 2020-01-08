@@ -84,8 +84,8 @@ export class WeatherComponent implements OnInit {
   }
 
   async refresh() {
-    const weather = await this.getData();
-    //const weather = JSON.parse(weatherInfo);
+    //const weather = await this.getData();
+    const weather = JSON.parse(weatherInfo);
     const tempCanvas = (<HTMLCanvasElement>document.getElementById('tempCanvas')).getContext("2d");
     const temperatureGradient = tempCanvas.createLinearGradient(30, 0, tempCanvas.canvas.offsetWidth, 0);
     const hours = [];
@@ -109,7 +109,7 @@ export class WeatherComponent implements OnInit {
     setTimeout(this.refresh.bind(this), FIVE_MINUTES);
   }
 
-  getData() {
+  getData():any {
     return this.http.get('/weather').toPromise();
   }
 
