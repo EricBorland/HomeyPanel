@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Input, Output, ViewEncapsulation } from '@angular/core';
+import { PanelDevice } from '../../services/core.service';
 
 @Component({
   selector: 'device-tile',
@@ -8,6 +9,7 @@ import { Component, EventEmitter, OnInit, Input, Output, ViewEncapsulation } fro
 export class DeviceTileComponent implements OnInit {
 
   @Input() device: any;
+  @Input() panelDevice: PanelDevice;
   @Output() toggle =  new EventEmitter();
 
   constructor() { }

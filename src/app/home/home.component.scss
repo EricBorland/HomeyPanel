@@ -1,6 +1,10 @@
-.zone-container {
-  padding: 16px;
-}
-.device-container {
-  padding: 8px;
+:host {
+  display: block;
+  padding-top: 8px;
+  .zone-container {
+    padding: 8px 16px;
+  }
+  .device-container {
+    padding: 8px;
+  }
 }

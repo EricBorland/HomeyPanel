@@ -1,3 +1,5 @@
+$innerPadding: 16px;
+
 :host {
   display: block;
   > div {
@@ -5,14 +7,15 @@
     border-style: solid;
     border: 1px solid #8DF8FF;
     border-top: none;
-    margin-top: 30px;
-    padding: 0px 8px 8px 8px;
+    margin-top: #{33px - $innerPadding * 0.5};
+    padding: #{$innerPadding * 0.5};
+    padding-top: 0;
   }
   .tile-label {
-    width: calc(100% + 16px);
-    margin-left: -8px;
+    width: calc(100% + #{$innerPadding});
+    margin-left: #{-0.5 * $innerPadding};
     position: relative;
-    top: -16px;
+    top: -15px;
     span {
       max-height: 30px;
       display: block;
@@ -21,13 +24,13 @@
     span[tile-subtitle]:not(:empty),
     .title,
     .subtitle {
-      padding: 0 16px;
+      padding: 0 $innerPadding;
     }
     label {
       font-size: 1.6rem;
     }
     span.top-border {
-      min-width: 16px;
+      min-width: $innerPadding;
       background: #8DF8FF;
       height: 1px;
       position: relative;

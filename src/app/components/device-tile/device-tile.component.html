@@ -1,7 +1,7 @@
-<div fxLayout="column" [ngClass]="{'active': device.capabilities.onoff && device.capabilities.onoff.value}" (click)="toggleOnOff(device)">
+<div fxLayout="column" [ngClass]="{'active': device.capabilitiesObj.onoff && device.capabilitiesObj.onoff.value}" (click)="toggleOnOff(device)">
   <div fxLayout="row" fxFlex="grow">
     <div fxFlex="50" fxLayout="row" fxLayoutAlign="center center">
-      <mat-icon svgIcon="{{ device.icon }}"></mat-icon>
+      <mat-icon svgIcon="{{ panelDevice.settings.icon }}"></mat-icon>
     </div>
     <!--
     <div fxFlex="50" fxLayout="row" fxLayoutAlign="end center">

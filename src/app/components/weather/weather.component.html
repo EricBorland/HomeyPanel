@@ -1,0 +1,33 @@
+<div fxLayout="column">
+  <div fxLayout="row" class="canvas-container">
+    <label> {{ temperatureData[0].label }} </label>
+    <canvas id="tempCanvas" baseChart
+      [datasets]="temperatureData"
+      [labels]="temperatureLabels"
+      [options]="temperatureOptions"
+      [legend]="true"
+      [chartType]="'line'">
+    </canvas>
+  </div>
+  <div fxLayout="row" class="canvas-container">
+    <label> {{ rainData[0].label }} </label>
+    <canvas baseChart
+      [datasets]="rainData"
+      [labels]="rainLabels"
+      [options]="rainOptions"
+      [legend]="true"
+      [chartType]="'line'">
+    </canvas>
+    <!--
+    <canvas baseChart fxFlex
+      [datasets]="lineChartData"
+      [labels]="lineChartLabels"
+      [options]="lineChartOptions"
+      [colors]="lineChartColors"
+      [legend]="lineChartLegend"
+      [chartType]="lineChartType"
+      [plugins]="lineChartPlugins">
+    </canvas>
+    -->
+  </div>
+</div>

@@ -8,12 +8,15 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MaterialModule } from './material.module';
+import { ChartsModule } from 'ng2-charts';
 
+import { MaterialModule } from './material.module';
 import { HomeComponent } from './home/home.component';
 import { ContainerTileComponent } from './components/container-tile/container-tile.component';
 import { NumberComponent } from './components/number/number.component';
 import { DeviceTileComponent } from './components/device-tile/device-tile.component';
+import { HeaderComponent } from './header/header.component';
+import { WeatherComponent } from './components/weather/weather.component';
 
 
 @NgModule({
@@ -22,7 +25,9 @@ import { DeviceTileComponent } from './components/device-tile/device-tile.compon
     HomeComponent,
     ContainerTileComponent,
     DeviceTileComponent,
-    NumberComponent
+    NumberComponent,
+    HeaderComponent,
+    WeatherComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +35,7 @@ import { DeviceTileComponent } from './components/device-tile/device-tile.compon
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     BrowserAnimationsModule,
     FlexLayoutModule,
+    ChartsModule,
     MaterialModule
   ],
   providers: [],
