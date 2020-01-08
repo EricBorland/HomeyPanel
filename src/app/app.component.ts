@@ -16,7 +16,6 @@ export class AppComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    document.body.style.zoom = '80%';
     await this.core.init();
     this.router.navigate(['/home']);
     this.loading = false;
