@@ -1,7 +1,27 @@
-span:not(.decimal) {
-  font-size: 1.6rem;
-}
-span.decimal {
-  padding-left: 2px;
-  line-height: 1.4;
+:host {
+  > div {
+    span:not(.decimal) {
+      font-size: 1.6rem;
+    }
+    span.decimal {
+      padding-left: 2px;
+      line-height: 1.4;
+    }
+    span.suffix {
+      padding-left: 4px;
+      &:empty {
+        padding-left: 0px;
+      }
+    }
+    &.small {
+      span:not(.decimal) {
+        font-size: 1rem;
+      }
+      span.decimal {
+        font-size: 0.65rem;
+        padding-left: 0px;
+        line-height: initial;
+      }
+    }
+  }
 }

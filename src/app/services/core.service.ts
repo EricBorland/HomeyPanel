@@ -3,6 +3,7 @@ import { HomeyApiService } from './homey-api.service';
 
 export interface PanelSettings {
   icon: string;
+  info?: string[];
 }
 
 export interface PanelDevice {
@@ -20,6 +21,7 @@ export interface PanelZone {
   id: string;
   settings: PanelSettings;
   devices: PanelZoneDevices;
+  new?: boolean;
 }
 
 const DEFAULT_ICONS = {
@@ -30,9 +32,14 @@ const DEFAULT_ICONS = {
   'action-socket': 'home-living-053-socket',
   'action-heater': 'heating-001-heater',
   'action-tv': 'home-living-043-television',
-  'action-homealarm': 'mdi-alarm-light-outline',
+  'action-homealarm': 'home-living-056-siren',
   'action.button': ''
-}
+};
+const DEFAULT_INFO = {
+  light: ['dim', 'measure_power'],
+  socket: ['measure_power', 'measure_voltage', 'measure_current'],
+  blinds: ['windowcoverings_set']
+};
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +49,12 @@ export class CoreService {
   devices;
   panelZones: PanelZone[];
 
-  constructor(private homeyAPI: HomeyApiService) { }
+  constructor(private homeyAPI: HomeyApiService) {
+    const savedZones = localStorage.getItem('panelZones');
+    if (savedZones) {
+      this.panelZones = JSON.parse(savedZones);
+    }
+  }
 
   async init() {
     await this.homeyAPI.connect();
@@ -57,14 +69,13 @@ export class CoreService {
     this.zones = await this.homeyAPI.getZones();
     this.devices = await this.homeyAPI.getDevices();
     // Restart the panelZonesMap
-    const panelZonesMap = {}
     for (const id in this.devices) {
       const device = this.devices[id];
       // Initialize zone
-      const currentZone = (this.panelZones || []).find(zone => zone.id === device.zone);
-      panelZonesMap[device.zone] = panelZonesMap[device.zone] || {
+      const zone = <any>(this.panelZones || []).find(zone => zone.id === device.zone) || {
+        new: true,
         id: device.zone,
-        settings: currentZone && currentZone.settings || {
+        settings: {
           icon: DEFAULT_ICONS.DEFAULT_ZONE
         },
         devices: {
@@ -74,16 +85,16 @@ export class CoreService {
           other: []
         }
       };
-      const zone = panelZonesMap[device.zone]
       // Updating device
       device.type = this.getDeviceType(device) || 'other';
-      const current = this.findCurrentDevice(device.id, currentZone);
+      const current = this.findCurrentDevice(device.id, zone);
       if (!current) {
         // New device found
         zone.devices[device.type].push({
           id: device.id,
           settings: {
-            icon: DEFAULT_ICONS[device.type + '-' + (device.virtualClass || device.class)] || DEFAULT_ICONS.DEFAULT_DEVICE
+            icon: DEFAULT_ICONS[device.type + '-' + (device.virtualClass || device.class)] || DEFAULT_ICONS.DEFAULT_DEVICE,
+            info: (DEFAULT_INFO[device.virtualClass || device.class] || []).filter(info => device.capabilitiesObj[info])
           }
         });
       } else if (current) {
@@ -96,15 +107,17 @@ export class CoreService {
           zone.devices[current.type].splice(current.index, 1);
         } else {
           // Already existing device
-          zone.devices[device.type].push(current.device);
         }
       }
       // Set getTemperatureMethod
       if (zone.devices.temperature.length) {
         zone.getTemperature = this.getZoneTemperature.bind(this, zone.id);
       }
+      if (zone.new) {
+        delete zone.new;
+        this.panelZones.push(zone);
+      }
     }
-    this.panelZones = Object.values(panelZonesMap);
   }
 
   getDeviceType(device) {
@@ -169,5 +182,9 @@ export class CoreService {
 
   getDevices() {
     return this.devices;
+  }
+
+  save(collection, item) {
+    localStorage.setItem(collection, JSON.stringify(item));
   }
 }

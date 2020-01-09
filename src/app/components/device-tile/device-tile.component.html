@@ -1,13 +1,20 @@
-<div fxLayout="column" [ngClass]="{'active': device.capabilitiesObj.onoff && device.capabilitiesObj.onoff.value}" (click)="toggleOnOff(device)">
+<div fxLayout="column" [ngClass]="{'active': capabilities.onoff && capabilities.onoff.value}" longPress (onPress)="onPress($event)" (onLongPress)="onLongPress($event)" matRipple>
   <div fxLayout="row" fxFlex="grow">
     <div fxFlex="50" fxLayout="row" fxLayoutAlign="center center">
       <mat-icon svgIcon="{{ panelDevice.settings.icon }}"></mat-icon>
     </div>
-    <!--
-    <div fxFlex="50" fxLayout="row" fxLayoutAlign="end center">
-      2
+    <div fxFlex="50" fxLayout="column" fxLayoutAlign="center end">
+      <div *ngFor="let info of panelDevice.settings.info" fxLayout="column" fxLayoutAlign="end end" class="device-info">
+        <div *ngIf="capabilities[info].type === 'number'" fxLayout="column" fxLayoutAlign="end end">
+          <label class="info-title">{{ capabilities[info].title }}</label>
+          <app-number value="{{ getValue(info) }}" suffix="{{ capabilities[info].units }}" small="true"></app-number>
+        </div>
+        <div *ngIf="capabilities[info].type === 'boolean'" fxLayout="column" fxLayoutAlign="end end">
+          <label class="info-title">{{ capabilities[info].title }}</label>
+          <mat-slide-toggle class="mat-slide-toggle-mini" [checked]="capabilities[info].value" [disabled]="true"></mat-slide-toggle>
+        </div>
+      </div>
     </div>
-    -->
   </div>
   <label class="title">
     {{ device.name }}

@@ -1,0 +1,51 @@
+<h1 mat-dialog-title>{{ data.device.name }}</h1>
+<div mat-dialog-content>
+  <div fxLayout="row" wrap class="settings">
+    <div fxFlex="50%" fxLayout="column" class="icon-settings">
+      <label> Icon </label>
+      <div fxLayout="row" fxLayoutAlign="start center" class="selected-icon-container">
+        <mat-icon class="selected-icon" svgIcon="{{ settings.icon }}"></mat-icon>
+        <span class="selected-icon-name"> {{ settings.icon }} </span>
+      </div>
+      <mat-form-field>
+        <input matInput [(ngModel)]="name" (ngModelChange)="filterIcons(name)" placeholder="Search icon">
+      </mat-form-field>
+      <div fxLayout="row wrap" class="icons-container" fxLayoutAlign="start start">
+        <mat-icon class="icons-list" *ngFor="let icon of icons; trackBy: trackBy" (click)="settings.icon = icon" svgIcon="{{ icon }}" matRipple></mat-icon>
+      </div>
+    </div>
+    <div class="vertical-separator"></div>
+    <div fxFlex="50%" fxLayout="column" class="info-settings">
+      <label> Side info capabilities
+        <span> ({{ settings.info.length }}/ 3)</span>
+      </label>
+      <div id="selectedCapabilities" fxLayout="column" class="capabilities-container" cdkDropList (cdkDropListDropped)="drop($event)" cdkDropListConnectedTo="availableCapabilities" [cdkDropListData]="settings.info" [cdkDropListEnterPredicate]="restrictMaxLength(settings.info, 3)">
+        <div class="selected-capability" *ngFor="let capability of settings.info" cdkDrag [cdkDragData]="capability" cdkDragLockAxis="y">
+          {{ data.device.capabilitiesObj[capability].title }}
+          <span *ngIf="data.device.capabilitiesObj[capability].units">
+            ({{ data.device.capabilitiesObj[capability].units }})
+          </span>
+        </div>
+        <div class="selected-capability" *ngIf="!settings.info.length">
+          Without selected capabilities
+        </div>
+      </div>
+      <label class="available-capabilities"> Available capabilities </label>
+      <div id="availableCapabilities" fxLayout="column" class="capabilities-container" cdkDropList (cdkDropListDropped)="drop($event)" cdkDropListConnectedTo="selectedCapabilities" [cdkDropListData]="availableCapabilities">
+        <div class="available-capability" *ngFor="let capability of availableCapabilities" cdkDrag [cdkDragData]="capability" cdkDragLockAxis="y">
+          {{ data.device.capabilitiesObj[capability].title }}
+          <span *ngIf="data.device.capabilitiesObj[capability].units">
+            ({{ data.device.capabilitiesObj[capability].units }})
+          </span>
+        </div>
+        <div class="available-capability" *ngIf="!availableCapabilities.length">
+          Without available capabilities
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+  <button mat-button (click)="close()">Close</button>
+  <button mat-button [mat-dialog-close]="settings" cdkFocusInitial>Save settings</button>
+</div>

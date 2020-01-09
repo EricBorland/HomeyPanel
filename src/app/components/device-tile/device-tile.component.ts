@@ -10,16 +10,38 @@ export class DeviceTileComponent implements OnInit {
 
   @Input() device: any;
   @Input() panelDevice: PanelDevice;
-  @Output() toggle =  new EventEmitter();
+  @Output() singlePress = new EventEmitter();
+  @Output() longPress = new EventEmitter();
+
+  capabilities;
 
   constructor() { }
 
   ngOnInit() {
+    this.capabilities = this.device.capabilitiesObj;
   }
 
-  toggleOnOff(device) {
-    this.toggle.emit({
-      device: device
+  getValue(info) {
+    if (this.capabilities[info].units === '%') {
+      const scale = 100 / (this.capabilities[info].max - this.capabilities[info].min);
+      return this.capabilities[info].value * scale - this.capabilities[info].min;
+    }
+    return this.capabilities[info].value;
+  }
+
+  onPress(event) {
+    this.singlePress.emit({
+      ...event,
+      device: this.device,
+      panelDevice: this.panelDevice
+    });
+  }
+
+  onLongPress(event) {
+    this.longPress.emit({
+      ...event,
+      device: this.device,
+      panelDevice: this.panelDevice
     });
   }
 
