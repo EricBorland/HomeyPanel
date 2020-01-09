@@ -7,7 +7,7 @@
       </span>
       <span tile-content fxLayout="row wrap" fxLayoutAlign="center center" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event, zone.devices[type])" class="drag-container">
         <div *ngFor="let device of zone.devices[type]" cdkDragLockAxis="x" cdkDrag cdkDragBoundary=".drag-container" class="drag-content">
-          <device-tile class="device-container" [device]="devices[device.id]" [panelDevice]="device" (toggle)="toggle($event)" cdkDragHandle></device-tile>
+          <device-tile class="device-container" [device]="devices[device.id]" [panelDevice]="device" (singlePress)="toggle($event)" (longPress)="openDeviceDetail($event)" cdkDragHandle></device-tile>
         </div>
       </span>
     </container-tile>

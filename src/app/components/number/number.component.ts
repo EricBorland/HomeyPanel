@@ -6,9 +6,10 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./number.component.scss']
 })
 export class NumberComponent implements OnInit {
-
   @Input() value: string;
   @Input() suffix: string;
+  @Input() small: boolean = false;
+  @Input() forceDecimal: boolean = false;
 
   integer: string;
   decimal: string;
@@ -19,6 +20,9 @@ export class NumberComponent implements OnInit {
     this.value = parseFloat(this.value).toFixed(1);
     [this.integer, this.decimal] = this.value.split('.');
     this.decimal = (this.decimal || [])[0];
+    if (this.decimal === '0' && !this.forceDecimal) {
+      this.decimal = '';
+    }
   }
 
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { CoreService, PanelZone, PanelDevice } from '../services/core.service';
+import { MatDialog } from '@angular/material/dialog';
+import { CoreService, PanelZone, PanelDevice, PanelSettings } from '../services/core.service';
+import { DeviceDetailComponent } from '../components/device-detail/device-detail.component';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +15,7 @@ export class HomeComponent implements OnInit {
   panelZones: PanelZone[];
   type: string = 'action';
 
-  constructor(private core: CoreService) { }
+  constructor(private core: CoreService, private dialog: MatDialog) { }
 
   async ngOnInit() {
     this.zones = await this.core.getZones();
@@ -23,6 +25,7 @@ export class HomeComponent implements OnInit {
 
   drop(event: CdkDragDrop<string[]>, array: PanelZone[] | PanelDevice[]) {
     moveItemInArray(array, event.previousIndex, event.currentIndex);
+    this.core.save('panelZones', this.panelZones);
   }
 
     /*
@@ -58,7 +61,8 @@ export class HomeComponent implements OnInit {
   }
      */
 
-  async toggle(event) {
+  toggle(event) {
+    console.log('toggling device', event);
     /*
     await this.homey.devices.setCapabilityValue({
       deviceId: event.device.id,
@@ -66,6 +70,22 @@ export class HomeComponent implements OnInit {
       value: event.value || !event.device.capabilities.onoff.value
     });
      */
+  }
+
+  openDeviceDetail(event) {
+    const dialog = this.dialog.open(DeviceDetailComponent, {
+      data: {
+        device: event.device,
+        panelDevice: event.panelDevice
+      }
+    });
+
+    dialog.afterClosed().subscribe(updatedSettings => {
+      if (updatedSettings) {
+        event.panelDevice.settings = updatedSettings;
+        this.core.save('panelZones', this.panelZones);
+      }
+    });
   }
 
 }

@@ -1,5 +1,5 @@
-<div fxLayout="row" fxLayoutAlign="end end">
+<div fxLayout="row" fxLayoutAlign="end end" [ngClass]="{'small': this.small}">
   <span>{{integer}}</span>
   <span *ngIf="decimal" class="decimal">.{{decimal}}</span>
-  <span>{{suffix}}</span>
+  <span class="suffix">{{suffix}}</span>
 </div>
