@@ -54,6 +54,8 @@ export class CoreService {
     const savedZones = localStorage.getItem('panelZones');
     if (savedZones) {
       this.panelZones = JSON.parse(savedZones);
+    } else {
+      this.panelZones = [];
     }
   }
 
