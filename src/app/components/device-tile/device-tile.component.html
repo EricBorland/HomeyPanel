@@ -1,4 +1,7 @@
 <div fxLayout="column" [ngClass]="{'active': capabilities.onoff && capabilities.onoff.value}" longPress (onPress)="onPress($event)" (onLongPress)="onLongPress($event)" matRipple>
+  <div class="loading-container" fxLayout="row" fxLayoutAlign="center center" *ngIf="panelDevice.loading">
+    <mat-spinner [diameter]="40"></mat-spinner>
+  </div>
   <div fxLayout="row" fxFlex="grow">
     <div fxFlex="50" fxLayout="row" fxLayoutAlign="center center">
       <mat-icon svgIcon="{{ panelDevice.settings.icon }}"></mat-icon>
