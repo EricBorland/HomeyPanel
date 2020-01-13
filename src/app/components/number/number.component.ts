@@ -25,4 +25,8 @@ export class NumberComponent implements OnInit {
     }
   }
 
+  ngOnChanges() {
+    this.ngOnInit();
+  }
+
 }
