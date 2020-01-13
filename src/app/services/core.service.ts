@@ -9,6 +9,7 @@ export interface PanelSettings {
 export interface PanelDevice {
   id: string;
   settings: PanelSettings;
+  loading?: boolean;
 }
 
 export interface PanelZoneDevices {
@@ -186,5 +187,16 @@ export class CoreService {
 
   save(collection, item) {
     localStorage.setItem(collection, JSON.stringify(item));
+  }
+
+  async quickAction(device, panelDevice) {
+    const homey = this.homeyAPI.getHomey();
+    panelDevice.loading = true;
+    await homey.devices.setCapabilityValue({
+      deviceId: device.id,
+      capabilityId: device.ui.quickAction,
+      value: !device.capabilitiesObj[device.ui.quickAction].value
+    });
+    panelDevice.loading = false;
   }
 }

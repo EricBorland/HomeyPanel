@@ -45,21 +45,21 @@ export class HomeyApiService {
     this.user = await this.api.getAuthenticatedUser();
   }
 
-  async getUser() {
+  getUser() {
     if (!this.user) {
       throw new Error('User not logged in');
     }
     return this.user;
   }
 
-  async getHomeys() {
+  getHomeys() {
     if (!this.user) {
       throw new Error('User not logged in');
     }
     return this.user.homeys;
   }
 
-  async getHomey() {
+  getHomey() {
     this.requireHomey();
     return this.homey;
   }
