@@ -8,7 +8,7 @@
         <span class="selected-icon-name"> {{ settings.icon }} </span>
       </div>
       <mat-form-field>
-        <input matInput [(ngModel)]="name" (ngModelChange)="filterIcons(name)" placeholder="Search icon">
+        <input matInput [(ngModel)]="iconFilter" (ngModelChange)="filterIcons(iconFilter)" placeholder="Search icon">
       </mat-form-field>
       <div fxLayout="row wrap" class="icons-container" fxLayoutAlign="start start">
         <mat-icon class="icons-list" *ngFor="let icon of icons; trackBy: trackBy" (click)="settings.icon = icon" svgIcon="{{ icon }}" matRipple></mat-icon>
