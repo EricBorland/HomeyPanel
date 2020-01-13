@@ -3,4 +3,18 @@
   width: 100%;
   padding-bottom: 16px;
   border-bottom: 1px solid rgba(141, 248, 255, 0.75);
+  > div {
+    /* TODO Remove when advanced header will be developed */
+    padding-right: 300px;
+    /* TODO Remove when advanced header will be developed */
+  }
+  .date {
+    .primary {
+      margin: 6px 0;
+      font-size: 2.5rem;
+    }
+    .secondary {
+      font-size: 1.2rem;
+    }
+  }
 }
