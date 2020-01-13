@@ -19,6 +19,7 @@ export class DeviceDetailComponent {
   settings: PanelSettings;
   icons: string[];
   availableCapabilities: string[];
+  iconFilter: string;
   filtering;
 
   constructor(
