@@ -1,0 +1,49 @@
+<div fxLayout="row wrap" fxLayoutAlign="center center">
+  <mat-card>
+    <mat-card-header fxLayoutAlign="center center">
+      <mat-card-title fxLayoutAlign="center center">
+        Welcome to Homey Panel
+      </mat-card-title>
+      <mat-card-subtitle>
+        The&nbsp;<span class="line-throught">missing</span>&nbsp;futuristic panel to control Homey devices
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content fxLayout="row wrap" fxLayoutAlign="center center">
+      <label fxFlex="100%" fxLayoutAlign="center center">
+        Please introduce the required settings
+      </label>
+      <div fxFlex="55%" fxLayout="column">
+        <mat-form-field>
+          <mat-label>Connexion Type</mat-label>
+          <mat-select [(value)]="settings.homey.type" required>
+            <mat-option [value]="connexionTypes.Cloud">
+              Cloud (HomeyCloudAPI)
+            </mat-option>
+            <mat-option [value]="connexionTypes.Local" disabled>
+              [Coming soon...] Local (LAN)
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div *ngIf="settings.homey.type === connexionTypes.Cloud" fxLayout="column">
+          <mat-form-field>
+            <input matInput [(ngModel)]="settings.homey.credentials.id" placeholder="Homey Client ID" required>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput [(ngModel)]="settings.homey.credentials.secret" placeholder="Homey Client Secret" required>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput [(ngModel)]="settings.homey.credentials.token" placeholder="Homey Client Token" required>
+          </mat-form-field>
+          <!--
+          <mat-form-field>
+            <input matInput [(ngModel)]="settings.darkSky.apiKey" placeholder="DarkSky API Key" required>
+          </mat-form-field>
+          -->
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions fxLayoutAlign="end center">
+      <button mat-button (click)="start()" [disabled]="incompletedForm()">Start</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

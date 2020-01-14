@@ -6,11 +6,11 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
 
+import { MaterialModule } from './material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
-
-import { MaterialModule } from './material.module';
+import { SetupComponent } from './setup/setup.component';
 import { HomeComponent } from './home/home.component';
 import { ContainerTileComponent } from './components/container-tile/container-tile.component';
 import { NumberComponent } from './components/number/number.component';
@@ -24,6 +24,7 @@ import { WeatherComponent } from './components/weather/weather.component';
 @NgModule({
   declarations: [
     AppComponent,
+    SetupComponent,
     HomeComponent,
     ContainerTileComponent,
     LongPressDirective,

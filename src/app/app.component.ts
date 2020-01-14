@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 import { CoreService } from './services/core.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,13 +11,26 @@ export class AppComponent implements OnInit {
   loading = true;
 
   constructor(
-    private core: CoreService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private core: CoreService
+  ) {
+    router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd && event.url === '/') {
+        this.ngOnInit();
+      }
+    });
+  }
 
   async ngOnInit() {
-    await this.core.init();
-    this.router.navigate(['/home']);
-    this.loading = false;
+    this.loading = true;
+    const settings = this.core.getSettings();
+    if (settings.homey && settings.homey.credentials && settings.homey.credentials.id) {
+      await this.core.init();
+      this.router.navigate(['/home']);
+      this.loading = false;
+    } else {
+      this.router.navigate(['/setup']);
+      this.loading = false;
+    }
   }
 }

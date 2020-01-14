@@ -4,12 +4,14 @@ declare const AthomCloudAPI: any;
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-// TODO Properly store this Homey Secrets
-const CLIENT_ID = '5cbb504da1fc782009f52e46';
-const CLIENT_SECRET = 'gvhs0gebgir8vz8yo2l0jfb49u9xzzhrkuo1uvs8';
-const REDIRECT_URL = 'http://localhost';
-const TOKEN = 'eyJfX2F0aG9tX2FwaV90eXBlIjoiQXRob21DbG91ZEFQSS5Ub2tlbiIsInRva2VuX3R5cGUiOiJiZWFyZXIiLCJhY2Nlc3NfdG9rZW4iOiIwMTQ2YjQ5YTA1MWY0ZDU0NWI5ODAxOTU2YTAxOTRjYTM2NzcyMDFkIiwiZXhwaXJlc19hdCI6IjIwMTktMTItMjhUMTE6MTY6MTkuOTU0WiIsInJlZnJlc2hfdG9rZW4iOiI2NDYzMzEzYWM2MGUxOGY1MzI2NDk5ODkxZTE3MjBlMzViODQzMDk1In0%3D';
 const MAX_LISTENERS = 100;
+
+export interface HomeyCredentials {
+  id: string;
+  secret: string;
+  url: string;
+  token: string;
+};
 
 @Injectable({
   providedIn: 'root'
@@ -24,12 +26,13 @@ export class HomeyApiService {
 
   constructor(private route: ActivatedRoute) { }
 
-  async connect() {
+  async connect(credentials: HomeyCredentials) {
     this.api = new AthomCloudAPI({
-      clientId: CLIENT_ID,
-      clientSecret: CLIENT_SECRET,
-      redirectUrl: REDIRECT_URL
+      clientId: credentials.id,
+      clientSecret: credentials.secret,
+      redirectUrl: credentials.url
     });
+    this.TOKEN = credentials.token;
   }
 
   async login() {
@@ -37,7 +40,6 @@ export class HomeyApiService {
       throw new Error('You must connect first');
     }
     // TODO instead of using TOKEN perform a real login
-    this.TOKEN = this.route.snapshot.queryParamMap.get('token') || TOKEN;
     this.api.setToken(JSON.parse(atob(decodeURIComponent(this.TOKEN))));
     const logged = await this.api.isLoggedIn();
     if (!logged) {
