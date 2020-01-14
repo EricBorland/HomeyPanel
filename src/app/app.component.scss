@@ -4,6 +4,10 @@
   display: block;
   height: 100%;
   padding: 16px;
+  div {
+    display: block;
+    height: 100%;
+  }
   > div.loading-container {
     height: 100%;
     position: fixed;

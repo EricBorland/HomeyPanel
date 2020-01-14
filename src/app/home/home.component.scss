@@ -7,6 +7,10 @@
   .device-container {
     padding: 8px;
   }
+  span[tile-subtitle] {
+    padding: 0 16px;
+    display: block;
+  }
 }
 .drag-container {
   overflow: hidden;

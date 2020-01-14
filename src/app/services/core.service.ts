@@ -1,6 +1,29 @@
 import { Injectable } from '@angular/core';
-import { HomeyApiService } from './homey-api.service';
+import { HomeyApiService, HomeyCredentials } from './homey-api.service';
 
+/* Global Settings */
+export enum ConnexionTypes {
+  Cloud = 'CLOUD',
+  Local = 'LOCAL'
+}
+
+export interface DarkSkySettings {
+  apiKey: string;
+  location: string;
+}
+
+export interface HomeySettings {
+  type: ConnexionTypes;
+  credentials?: HomeyCredentials;
+  ip?: string;
+}
+
+export interface GlobalSettings {
+  homey: HomeySettings,
+  darkSky: DarkSkySettings
+}
+
+/* Panel Settings */
 export interface PanelSettings {
   icon: string;
   info?: string[];
@@ -46,21 +69,23 @@ const DEFAULT_INFO = {
   providedIn: 'root'
 })
 export class CoreService {
+  settings;
   zones;
   devices;
   panelZones: PanelZone[];
 
   constructor(private homeyAPI: HomeyApiService) {
-    const savedZones = localStorage.getItem('panelZones');
-    if (savedZones) {
-      this.panelZones = JSON.parse(savedZones);
-    } else {
-      this.panelZones = [];
-    }
+    const settings = localStorage.getItem('settings') || '{}';
+    const savedZones = localStorage.getItem('panelZones') || '[]';
+    this.settings = JSON.parse(settings);
+    this.panelZones = JSON.parse(savedZones);
   }
 
   async init() {
-    await this.homeyAPI.connect();
+    if (!this.settings.homey || !this.settings.homey.credentials) {
+      throw new Error('Homey credentials must be provided!');
+    }
+    await this.homeyAPI.connect(this.settings.homey.credentials);
     await this.homeyAPI.login();
     const homeys = await this.homeyAPI.getHomeys();
     await this.homeyAPI.setHomey(homeys[0]);
@@ -187,7 +212,12 @@ export class CoreService {
     return this.devices;
   }
 
+  getSettings() {
+    return this.settings;
+  }
+
   save(collection, item) {
+    this[collection] = item;
     localStorage.setItem(collection, JSON.stringify(item));
   }
 

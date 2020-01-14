@@ -1,3 +1,4 @@
+<router-outlet name="header"></router-outlet>
 <div fxLayout="row wrap" fxLayoutAlign="center" *ngIf="panelZones && panelZones.length" cdkDropList (cdkDropListDropped)="drop($event, panelZones)" class="drag-container">
   <div *ngFor="let zone of panelZones" class="zone-container" cdkDrag>
     <container-tile title="{{zones[zone.id].name}}" subtitle="{{zone.temperature}}">
