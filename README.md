@@ -1,25 +1,25 @@
 HomeyPanel
 ==========
-The missing futuristic panel to control Homey devices
+The ~~missing~~ futuristic panel to control Homey devices
 
 **Table of Contents**
-* [Requirements](#markdown-header-requirements)
-* [Running Local Environment](#markdown-header-running-local-environment)
-* [Contributing](#markdown-header-contributing)
+* [Requirements](#requirements)
+* [Running Local Environment](#running-local-environment)
+* [Contributing](#contributing)
 
 - - -
 
 ## Requirements
 To run this software AS IS in your local environment you'll need to install the following:
 - NodeJS >= 12 ([NVM](https://github.com/nvm-sh/nvm#installing-and-updating) recommended)
-- Angular CLI >= 8.3: `npm install angular-cli -g`
-- Install Yarn: `npm install yarn -g`
+- Angular CLI >= 8.3: `npm install -g @angular/cli`
+- Install Yarn: `npm install -g yarn`
 - Install App dependencies: run `yarn`
 
 Moreover, if you want the weather widged in the header to properly show the temperature and rain chance, you'll need to:
 - Signup for free at [DarkSky API](https://darksky.net/dev)
 - Get the Secret Key (HEADS UP! This app refreshed the weather every 5 minutes (288 calls / day) because there is a daily limit on the Free API. If you run this app in multiple devices you might hit the limit)
-- Edit the file proxy.conf.json add replace the "<API_KEY>" for the Key you just obtained and the "<LAT>" and "<LONG>" for the latitude and longitue you want to show the weather from (in future versions this will be directly taken from Homey)
+- Edit the file proxy.conf.json add replace the \<API_KEY\> for the Key you just obtained and the \<LAT\> and \<LONG\> for the latitude and longitue you want to show the weather from (in future versions this will be directly taken from Homey)
 
 
 ## Running Local Environment

@@ -4,7 +4,6 @@ import { SetupComponent } from './setup/setup.component';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 
-
 const routes: Routes = [{
   path: 'setup',
   component: SetupComponent
