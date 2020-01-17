@@ -8,10 +8,10 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "generate-icon-set-layer": "cd src/assets/icons && ls | awk '{printf(\"\\\"%s\\\"\\n\", $0)}' | sed 'p; s/\\ /-/g' | xargs -n2 mv && ls *.svg | xargs -I{} sh -c 'cat {} | sed \"s/id=\\\"Layer_1\\\"/id=\\\"$PREFIX-{}\\\"/g\"' | sed \"s/.svg\\\"/\\\"/g\" | grep -v ?xml > ../icon-set.svg && rm -Rf *.svg",
     "generate-icon-set": "cd src/assets/icons && ls | awk '{printf(\"\\\"%s\\\"\\n\", $0)}' | sed 'p; s/\\ /-/g' | xargs -n2 mv && ls *.svg | xargs -I{} sh -c 'cat {} | sed \"s/<svg /<svg id=\\\"$PREFIX-{}\\\" /g\"' | sed \"s/.svg\\\"/\\\"/g\" | grep -v ?xml > ../icon-set.svg && rm -Rf *.svg",
     "generate-icon-json": "cat src/assets/icons.svg | awk -F\"id=\" '{print $2}' | cut -f1 -d' ' | grep . | awk ' BEGIN { ORS = \"\"; print \"{ \\\"icons\\\": [\"; } { print $0\",\"; } END { print \"] }\"; }' | sed \"s/,]/]/\" > src/assets/icons.json",
-    "postinstall": "npm run generate-icon-json"
+    "postinstall": "npm run generate-icon-json",
+    "version": "standard-version"
   },
   "private": true,
   "dependencies": {
@@ -46,6 +46,7 @@
     "@types/jasminewd2": "2.0.3",
     "@types/node": "8.9.4",
     "codelyzer": "5.0.0",
+    "eslint": "6.8.0",
     "jasmine-core": "3.4.0",
     "jasmine-spec-reporter": "4.2.1",
     "karma": "4.1.0",
@@ -54,8 +55,8 @@
     "karma-jasmine": "2.0.1",
     "karma-jasmine-html-reporter": "1.4.0",
     "protractor": "5.4.0",
+    "standard-version": "7.0.1",
     "ts-node": "7.0.0",
-    "tslint": "5.15.0",
     "typescript": "3.5.3"
   }
 }
