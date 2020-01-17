@@ -1,0 +1,18 @@
+#!/bin/sh
+
+printf "\n\033[36mCOMMIT MSG HOOK\n"
+printf "\033[36m  - Validating commit message style...\n"
+
+TYPES=("feat" "fix" "build" "chore" "ci" "docs" "style" "refactor" "perf" "test")
+MIN_LENGTH=5
+MAX_LENGTH=100
+REGEXP="^(feat|fix|build|chore|ci|docs|style|refactor|perf|test)(\(.+\))?: ."
+MESSAGE=$(head -1 $1)
+if [[ ! $MESSAGE =~ $REGEXP ]]; then
+  printf "  \033[41m\033[37m✘ Invalid commit message => $MESSAGE\033[0m\n\n"
+  printf "  \033[41m\033[37mPlease read the Contribution section of the README.md\033[0m\n\n"
+  exit 1
+fi
+printf "  \033[36m✓ Valid commit message\033[0m\n\n"
+
+printf "\033[32mCOMMIT SUCCEEDED\033[0m\n\n"

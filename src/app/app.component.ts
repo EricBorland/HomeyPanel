@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  async ngOnInit() {
+  async ngOnInit(): Promise<void> {
     this.loading = true;
     const settings = this.core.getSettings();
     if (settings.homey && settings.homey.credentials && settings.homey.credentials.id) {
