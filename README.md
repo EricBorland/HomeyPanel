@@ -1,27 +1,36 @@
-# HomeyPanel
+HomeyPanel
+==========
+The missing futuristic panel to control Homey devices
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.21.
+**Table of Contents**
+* [Requirements](#markdown-header-requirements)
+* [Running Local Environment](#markdown-header-running-local-environment)
+* [Contributing](#markdown-header-contributing)
 
-## Development server
+- - -
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Requirements
+To run this software AS IS in your local environment you'll need to install the following:
+- NodeJS >= 12 ([NVM](https://github.com/nvm-sh/nvm#installing-and-updating) recommended)
+- Angular CLI >= 8.3: `npm install angular-cli -g`
+- Install Yarn: `npm install yarn -g`
+- Install App dependencies: run `yarn`
 
-## Code scaffolding
+Moreover, if you want the weather widged in the header to properly show the temperature and rain chance, you'll need to:
+- Signup for free at [DarkSky API](https://darksky.net/dev)
+- Get the Secret Key (HEADS UP! This app refreshed the weather every 5 minutes (288 calls / day) because there is a daily limit on the Free API. If you run this app in multiple devices you might hit the limit)
+- Edit the file proxy.conf.json add replace the "<API_KEY>" for the Key you just obtained and the "<LAT>" and "<LONG>" for the latitude and longitue you want to show the weather from (in future versions this will be directly taken from Homey)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+## Running Local Environment
+Once you met the requirements above, just type `yarn start` and navigate to http://localhost:4200 in your favourite modern browser.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
+## Contributing
+If you're planning to contribute to this project, please read this carefuly.
+This is an open source project and it requires the community to keep some standards to maintain the code quality, standard conventions and so on. Here are some of the requirements:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+- No one is allowed to push to master branch, everything should be done in a separated branch and pull requested to master
+- Pull requests must be approved by the project maintainers to be merged
+- Commits and branch names must follow the [Conventional Commits Specifications](https://www.conventionalcommits.org/en/v1.0.0/)
+- Automated testing is recommended and will be mandatory in the future

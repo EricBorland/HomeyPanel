@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   async ngOnInit() {
     this.zones = await this.core.getZones();
     this.devices = await this.core.getDevices();
-    this.panelZones = this.core.getDevicesByZone();
+    this.panelZones = this.core.getPanelZones();
   }
 
   drop(event: CdkDragDrop<string[]>, array: PanelZone[] | PanelDevice[]) {

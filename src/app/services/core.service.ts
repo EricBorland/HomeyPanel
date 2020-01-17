@@ -88,11 +88,13 @@ export class CoreService {
     await this.homeyAPI.connect(this.settings.homey.credentials);
     await this.homeyAPI.login();
     const homeys = await this.homeyAPI.getHomeys();
+    // TODO Allow users with multiple homeys to select the desired one
     await this.homeyAPI.setHomey(homeys[0]);
     await this.sync();
   }
 
   async sync() {
+    // TODO Build panelZones as a recursive function to allow zones inside zones
     // Get current devices and zones from Homey
     this.zones = await this.homeyAPI.getZones();
     this.devices = await this.homeyAPI.getDevices();
@@ -200,7 +202,7 @@ export class CoreService {
     return temp / zone.devices.temperature.length;
   }
 
-  getDevicesByZone() {
+  getPanelZones() {
     return this.panelZones;
   }
 
