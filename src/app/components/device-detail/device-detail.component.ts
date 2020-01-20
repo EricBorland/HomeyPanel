@@ -67,12 +67,19 @@ export class DeviceDetailComponent {
     }
   }
 
-  restrictMaxLength(array, length) {
-    return (): boolean => array.length < length;
+  roomForMoreCapabilities(): boolean {
+    return this.settings && this.settings.info && this.settings.info.length < 3;
   }
 
-  trackBy(index): void {
+  trackBy(index: number): number {
     return index;
+  }
+
+  transfer(from: string[], to: string[], index: number): void {
+    if (to !== this.settings.info || this.roomForMoreCapabilities()) {
+      to.push(from[index]);
+      from.splice(index, 1);
+    }
   }
 
 }
