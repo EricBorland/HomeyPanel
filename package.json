@@ -4,7 +4,7 @@
   "scripts": {
     "build": "ng build",
     "e2e": "ng e2e",
-    "eslint": "eslint src/**/*.ts e2e/**/*.ts",
+    "eslint": "eslint src e2e --ext .ts --fix",
     "generate-icon-json": "cat src/assets/icons.svg | awk -F\"id=\" '{print $2}' | cut -f1 -d' ' | grep . | awk ' BEGIN { ORS = \"\"; print \"{ \\\"icons\\\": [\"; } { print $0\",\"; } END { print \"] }\"; }' | sed \"s/,]/]/\" > src/assets/icons.json",
     "generate-icon-set": "cd src/assets/icons && ls | awk '{printf(\"\\\"%s\\\"\\n\", $0)}' | sed 'p; s/\\ /-/g' | xargs -n2 mv && ls *.svg | xargs -I{} sh -c 'cat {} | sed \"s/<svg /<svg id=\\\"$PREFIX-{}\\\" /g\"' | sed \"s/.svg\\\"/\\\"/g\" | grep -v ?xml > ../icon-set.svg && rm -Rf *.svg",
     "install:hooks": ". ./hooks/install.sh",

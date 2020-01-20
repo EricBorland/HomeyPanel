@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ChartDataSets, ChartOptions } from 'chart.js';
-import { Color, Label } from 'ng2-charts';
-import { RGBColor, ColorGradient, COLORS } from './color-gradient.class';
+import { Label } from 'ng2-charts';
+import { ColorGradient, COLORS } from './color-gradient.class';
 
 const FIVE_MINUTES = 5 * 60 * 1000;
 
@@ -77,13 +77,13 @@ export class WeatherComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.refresh();
   }
 
-  async refresh() {
+  async refresh(): Promise<void> {
     const weather = await this.getData();
-    const tempCanvas = (<HTMLCanvasElement>document.getElementById('tempCanvas')).getContext("2d");
+    const tempCanvas = (document.getElementById('tempCanvas') as HTMLCanvasElement).getContext('2d');
     const temperatureGradient = tempCanvas.createLinearGradient(30, 0, tempCanvas.canvas.offsetWidth, 0);
     const hours = [];
     const tempData = [];
@@ -96,7 +96,7 @@ export class WeatherComponent implements OnInit {
       temperatureGradient.addColorStop(index / weather.hourly.data.length, this.temperatureColor.findPoint(tempData[tempData.length - 1]).toRGBString());
       // Rain
       rainData.push(row.precipProbability * 100);
-    })
+    });
     this.temperatureLabels = hours;
     this.temperatureData[0].data = tempData;
     this.temperatureData[0].borderColor = temperatureGradient;
@@ -106,24 +106,17 @@ export class WeatherComponent implements OnInit {
     setTimeout(this.refresh.bind(this), FIVE_MINUTES);
   }
 
-  getData():any {
+  getData(): Promise<any> {
     return this.http.get('/weather').toPromise();
   }
 
-  convertTemperature(temperature) {
+  convertTemperature(temperature): number {
     // TODO Add settings to choose the temperature Unit
+    // eslint-disable-next-line no-constant-condition
     if (false) {
       return temperature;
     }
     return parseFloat(((temperature - 32 ) * 5 / 9).toFixed(2));
-  }
-
-  getTempColor(context) {
-    var index = context.dataIndex;
-    var value = context.dataset.data[index];
-    return value < 10 ? 'red' :  // draw negative values in red
-        index % 2 ? 'blue' :    // else, alternate values in blue and green
-        'green';
   }
 
 }

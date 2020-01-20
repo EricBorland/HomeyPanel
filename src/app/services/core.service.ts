@@ -19,8 +19,8 @@ export interface HomeySettings {
 }
 
 export interface GlobalSettings {
-  homey: HomeySettings,
-  darkSky: DarkSkySettings
+  homey: HomeySettings;
+  darkSky: DarkSkySettings;
 }
 
 /* Panel Settings */
@@ -46,6 +46,12 @@ export interface PanelZone {
   settings: PanelSettings;
   devices: PanelZoneDevices;
   new?: boolean;
+}
+
+export interface CurrentDevice {
+  type: string;
+  index: number;
+  device: any;
 }
 
 const DEFAULT_ICONS = {
@@ -81,7 +87,7 @@ export class CoreService {
     this.panelZones = JSON.parse(savedZones);
   }
 
-  async init() {
+  async init(): Promise<void> {
     if (!this.settings.homey || !this.settings.homey.credentials) {
       throw new Error('Homey credentials must be provided!');
     }
@@ -93,7 +99,7 @@ export class CoreService {
     await this.sync();
   }
 
-  async sync() {
+  async sync(): Promise<void> {
     // TODO Build panelZones as a recursive function to allow zones inside zones
     // Get current devices and zones from Homey
     this.zones = await this.homeyAPI.getZones();
@@ -102,7 +108,7 @@ export class CoreService {
     for (const id in this.devices) {
       const device = this.devices[id];
       // Initialize zone
-      const zone = <any>(this.panelZones || []).find(zone => zone.id === device.zone) || {
+      const zone = (this.panelZones || [] as any).find(zone => zone.id === device.zone) || {
         new: true,
         id: device.zone,
         settings: {
@@ -150,7 +156,7 @@ export class CoreService {
     }
   }
 
-  getDeviceType(device) {
+  getDeviceType(device): string {
     // TODO Allow multiple types per device
     if (device.capabilities.includes('onoff') || device.capabilities.includes('button') || device.capabilities.includes('dim')) {
       return 'action';
@@ -162,7 +168,7 @@ export class CoreService {
   }
 
   // TODO Find device in other zones also and handle device zone changes
-  findCurrentDevice(deviceId, zone) {
+  findCurrentDevice(deviceId, zone): void | CurrentDevice {
     if (!zone) {
       return;
     }
@@ -192,7 +198,7 @@ export class CoreService {
     }
   }
 
-  getZoneTemperature(zoneId) {
+  getZoneTemperature(zoneId): number {
     const zone = (this.panelZones || []).find(zone => zone.id === zoneId);
     if (!zone || !zone.devices || !zone.devices.temperature || !zone.devices.temperature.length) {
       return NaN;
@@ -202,28 +208,28 @@ export class CoreService {
     return temp / zone.devices.temperature.length;
   }
 
-  getPanelZones() {
+  getPanelZones(): PanelZone[] {
     return this.panelZones;
   }
 
-  getZones() {
+  getZones(): any {
     return this.zones;
   }
 
-  getDevices() {
+  getDevices(): any {
     return this.devices;
   }
 
-  getSettings() {
+  getSettings(): GlobalSettings {
     return this.settings;
   }
 
-  save(collection, item) {
+  save(collection, item): void {
     this[collection] = item;
     localStorage.setItem(collection, JSON.stringify(item));
   }
 
-  async quickAction(device, panelDevice) {
+  async quickAction(device, panelDevice): Promise<void> {
     const homey = this.homeyAPI.getHomey();
     panelDevice.loading = true;
     await homey.devices.setCapabilityValue({

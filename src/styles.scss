@@ -1,6 +1,7 @@
 // Custom Angular Material Theming
 @import '~@angular/material/theming';
 @import './app/components/device-detail/device-detail.theme';
+@import './app/components/device-tile/device-tile.theme';
 @include mat-core();
 $primary-palette: (
   50: #f1feff,
@@ -71,8 +72,13 @@ $homey-panel-accent: mat-palette($secondary-palette);
 $homey-panel-theme: mat-dark-theme($homey-panel-primary, $homey-panel-accent);
 
 @include angular-material-theme($homey-panel-theme);
-@include device-detail-theme($homey-panel-theme);
 
+/* Themed components */
+/* TODO ADD ALL MISSING COMPONENTS */
+@include device-detail-theme($homey-panel-theme);
+@include device-tile-theme($homey-panel-theme);
+
+/* Current theme colors */
 $primary: mat-color($homey-panel-primary);
 $accent: mat-color($homey-panel-accent);
 

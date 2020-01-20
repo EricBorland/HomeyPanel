@@ -10,7 +10,7 @@ describe('ContainerTileComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ ContainerTileComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

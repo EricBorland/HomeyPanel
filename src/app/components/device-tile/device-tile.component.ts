@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Input, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, OnInit, Input, Output } from '@angular/core';
 import { PanelDevice } from '../../services/core.service';
 
 @Component({
@@ -15,13 +15,14 @@ export class DeviceTileComponent implements OnInit {
 
   capabilities;
 
-  constructor() { }
-
-  ngOnInit() {
-    this.capabilities = this.device.capabilitiesObj;
+  ngOnInit(): void {
+    this.capabilities = this.device.capabilitiesObj || {};
+    this.device.capabilities.forEach(capability => {
+      this.capabilities[capability] = this.capabilities[capability] || {};
+    });
   }
 
-  getValue(info) {
+  getValue(info): boolean | number {
     if (this.capabilities[info].units === '%') {
       const scale = 100 / (this.capabilities[info].max - this.capabilities[info].min);
       return this.capabilities[info].value * scale - this.capabilities[info].min;
@@ -29,7 +30,7 @@ export class DeviceTileComponent implements OnInit {
     return this.capabilities[info].value;
   }
 
-  onPress(event) {
+  onPress(event): void {
     this.singlePress.emit({
       ...event,
       device: this.device,
@@ -37,7 +38,7 @@ export class DeviceTileComponent implements OnInit {
     });
   }
 
-  onLongPress(event) {
+  onLongPress(event): void {
     this.longPress.emit({
       ...event,
       device: this.device,

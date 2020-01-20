@@ -10,7 +10,7 @@ describe('DeviceTileComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ DeviceTileComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

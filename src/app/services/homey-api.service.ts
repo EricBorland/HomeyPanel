@@ -11,7 +11,7 @@ export interface HomeyCredentials {
   secret: string;
   url: string;
   token: string;
-};
+}
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +26,7 @@ export class HomeyApiService {
 
   constructor(private route: ActivatedRoute) { }
 
-  async connect(credentials: HomeyCredentials) {
+  async connect(credentials: HomeyCredentials): Promise<void> {
     this.api = new AthomCloudAPI({
       clientId: credentials.id,
       clientSecret: credentials.secret,
@@ -35,7 +35,7 @@ export class HomeyApiService {
     this.TOKEN = credentials.token;
   }
 
-  async login() {
+  async login(): Promise<void> {
     if (!this.api) {
       throw new Error('You must connect first');
     }
@@ -48,44 +48,44 @@ export class HomeyApiService {
     this.user = await this.api.getAuthenticatedUser();
   }
 
-  getUser() {
+  getUser(): any {
     if (!this.user) {
       throw new Error('User not logged in');
     }
     return this.user;
   }
 
-  getHomeys() {
+  getHomeys(): any[] {
     if (!this.user) {
       throw new Error('User not logged in');
     }
     return this.user.homeys;
   }
 
-  getHomey() {
+  getHomey(): any {
     this.requireHomey();
     return this.homey;
   }
 
-  async setHomey(homey) {
+  async setHomey(homey): Promise<void> {
     this.homey = await homey.authenticate();
     return await this.sync();
   }
 
-  async syncZones() {
+  async syncZones(): Promise<any> {
     this.requireHomey();
     this.zones = await this.homey.zones.getZones();
     return this.zones;
   }
 
-  async getZones() {
+  async getZones(): Promise<any> {
     if (!this.zones) {
       await this.syncZones();
     }
     return this.zones;
   }
 
-  async syncDevices() {
+  async syncDevices(): Promise<any> {
     this.requireHomey();
     this.devices = await this.homey.devices.getDevices();
     this.homey.devices.setMaxListeners(MAX_LISTENERS);
@@ -93,19 +93,19 @@ export class HomeyApiService {
     return this.devices;
   }
 
-  async getDevices() {
+  async getDevices(): Promise<any> {
     if (!this.devices) {
       await this.syncDevices();
     }
     return this.devices;
   }
 
-  async sync() {
+  async sync(): Promise<void> {
     await this.syncZones();
     await this.syncDevices();
   }
 
-  addDevicesListeners(devices) {
+  addDevicesListeners(devices): void {
     for (const id in devices) {
       const device = devices[id];
       device.setMaxListeners(MAX_LISTENERS);
@@ -122,7 +122,7 @@ export class HomeyApiService {
     }
   }
 
-  requireHomey() {
+  requireHomey(): void {
     if (!this.homey) {
       throw new Error('Homey not selected');
     }
