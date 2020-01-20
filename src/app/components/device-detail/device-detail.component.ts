@@ -1,12 +1,12 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDrag } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { PanelDevice, PanelSettings } from '../../services/core.service';
 import { icons } from  '../../../assets/icons.json';
 
 export interface DeviceDetailData {
   device: any;
-  panelDevice: PanelDevice
+  panelDevice: PanelDevice;
 }
 
 @Component({
@@ -56,22 +56,22 @@ export class DeviceDetailComponent {
     });
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<string[]>): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
       transferArrayItem(event.previousContainer.data,
-                        event.container.data,
-                        event.previousIndex,
-                        event.currentIndex);
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
     }
   }
 
   restrictMaxLength(array, length) {
-    return () => array.length < length;
+    return (): boolean => array.length < length;
   }
 
-  trackBy(index) {
+  trackBy(index): void {
     return index;
   }
 

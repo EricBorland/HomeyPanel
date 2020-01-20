@@ -27,14 +27,18 @@ export class LongPressDirective {
   // TODO allow double click / tap as well
 
   @HostBinding('class.press')
-  get press() { return this.pressing; }
+  get press(): boolean {
+    return this.pressing;
+  }
 
   @HostBinding('class.longpress')
-  get longPress() { return this.longPressing; }
+  get longPress(): boolean {
+    return this.longPressing;
+  }
 
   @HostListener('touchstart', ['$event'])
   @HostListener('mousedown', ['$event'])
-  onMouseDown(event) {
+  onMouseDown(event): void {
     this.pressing = true;
     this.longPressing = false;
     this.timeout = setTimeout(() => {
@@ -50,7 +54,7 @@ export class LongPressDirective {
   @HostListener('mouseup', ['$event'])
   @HostListener('mouseleave', ['$event'])
   @HostListener('mousemove', ['$event'])
-  endPress(event) {
+  endPress(event): void {
     clearTimeout(this.timeout);
     clearInterval(this.interval);
     if (this.pressing && !this.longPressing && event.type !== 'mousemove') {

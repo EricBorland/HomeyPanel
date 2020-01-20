@@ -8,15 +8,13 @@ import { Component, OnInit, Input } from '@angular/core';
 export class NumberComponent implements OnInit {
   @Input() value: string;
   @Input() suffix: string;
-  @Input() small: boolean = false;
-  @Input() forceDecimal: boolean = false;
+  @Input() small = false;
+  @Input() forceDecimal = false;
 
   integer: string;
   decimal: string;
 
-  constructor() { }
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.value = parseFloat(this.value).toFixed(1);
     [this.integer, this.decimal] = this.value.split('.');
     this.decimal = (this.decimal || [])[0];
@@ -25,7 +23,7 @@ export class NumberComponent implements OnInit {
     }
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     this.ngOnInit();
   }
 

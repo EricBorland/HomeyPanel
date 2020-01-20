@@ -29,7 +29,7 @@ export class ColorGradient {
   }
 
   toRGBString(): string {
-    return "rgb(" + this.color.r + ", " + this.color.g + ", " + this.color.b + ")";
+    return 'rgb(' + this.color.r + ', ' + this.color.g + ', ' + this.color.b + ')';
   }
 
   hexToRGB(hexColor: string): RGBColor {
@@ -50,7 +50,7 @@ export class ColorGradient {
       g: 0,
       b: 0
     };
-    ['r', 'g', 'b'].forEach((component, i) => {
+    ['r', 'g', 'b'].forEach(component => {
       this.color[component] = Math.round(this.initial[component] + (this.final[component] - this.initial[component]) * percentage / 100);
     });
     return this;
