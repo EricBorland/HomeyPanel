@@ -19,8 +19,8 @@ export class HeaderComponent implements OnInit {
     this.weatherSettings = settings.darkSky;
   }
 
-  ngOnInit() {
-    setInterval(() => { this.now = Date.now() }, ONE_SECOND);
+  ngOnInit(): void {
+    setInterval(() => { this.now = Date.now(); }, ONE_SECOND);
   }
 
 }

@@ -16,7 +16,7 @@ export class SetupComponent implements OnInit {
     private core: CoreService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.settings = {
       homey: {
         type: this.connexionTypes.Cloud,
@@ -34,16 +34,16 @@ export class SetupComponent implements OnInit {
     };
   }
 
-  start() {
+  start(): void {
     this.core.save('settings', this.settings);
     this.router.navigate(['/']);
   }
 
-  incompletedForm() {
-    return !this.settings.homey.type ||
-      !this.settings.homey.credentials.id ||
-      !this.settings.homey.credentials.secret ||
-      !this.settings.homey.credentials.token;
+  incompletedForm(): boolean {
+    return !(this.settings.homey.type &&
+      this.settings.homey.credentials.id &&
+      this.settings.homey.credentials.secret &&
+      this.settings.homey.credentials.token);
   }
 
 }

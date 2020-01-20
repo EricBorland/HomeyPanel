@@ -1,4 +1,4 @@
-<div fxLayout="column" [ngClass]="{'active': capabilities.onoff && capabilities.onoff.value}" longPress (onPress)="onPress($event)" (onLongPress)="onLongPress($event)" matRipple>
+<div fxLayout="column" [ngClass]="{'active': capabilities.onoff && capabilities.onoff.value, 'error': !device.ready}" longPress (onPress)="onPress($event)" (onLongPress)="onLongPress($event)" matRipple [matRippleDisabled]="!device.ready" matTooltip="{{ device.unavailableMessage }}">
   <div class="loading-container" fxLayout="row" fxLayoutAlign="center center" *ngIf="panelDevice.loading">
     <mat-spinner [diameter]="40"></mat-spinner>
   </div>
