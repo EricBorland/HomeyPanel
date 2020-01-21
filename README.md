@@ -16,6 +16,9 @@ To run this software AS IS in your local environment you'll need to install the 
 - Install Yarn: `npm install -g yarn`
 - Install App dependencies: run `yarn`
 
+_Note: If you run `yarn install` on Windows and some Linux distros, you might encounter errors. In that case, delete the `postinstall` script in the package.json. In a later stage this will be improved to work cross-platform._
+
+
 Moreover, if you want the weather widged in the header to properly show the temperature and rain chance, you'll need to:
 - Signup for free at [DarkSky API](https://darksky.net/dev)
 - Get the Secret Key (HEADS UP! This app refreshed the weather every 5 minutes (288 calls / day) because there is a daily limit on the Free API. If you run this app in multiple devices you might hit the limit)
