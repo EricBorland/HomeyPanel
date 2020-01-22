@@ -1,14 +1,21 @@
 <router-outlet name="header"></router-outlet>
-<div fxLayout="row wrap" fxLayoutAlign="center" *ngIf="panelZones && panelZones.length" cdkDropList (cdkDropListDropped)="drop($event, panelZones)" class="drag-container">
-  <div *ngFor="let zone of panelZones" class="zone-container" cdkDrag>
+<div fxLayout="row wrap" fxLayoutAlign="center" *ngIf="panelZones && panelZones.length" class="drag-container" dragula="zones" [(dragulaModel)]="panelZones" (dragulaModelChange)="saveZones()">
+  <div *ngFor="let zone of panelZones" class="zone-container">
     <container-tile title="{{zones[zone.id].name}}" subtitle="{{zone.temperature}}">
       <span tile-subtitle *ngIf="zone.getTemperature">
         <app-number value="{{zone.getTemperature()}}" suffix="ºC"></app-number>
         <span class="iconify" data-icon="mdi-account"></span>
       </span>
-      <span tile-content fxLayout="row wrap" fxLayoutAlign="center center" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event, zone.devices[type])" class="drag-container">
-        <div *ngFor="let device of zone.devices[type]" cdkDragLockAxis="x" cdkDrag cdkDragBoundary=".drag-container" class="drag-content">
-          <device-tile class="device-container" [device]="devices[device.id]" [panelDevice]="device" (singlePress)="toggle($event)" (longPress)="openDeviceDetail($event)" cdkDragHandle></device-tile>
+      <span tile-content fxLayout="row wrap" fxLayoutAlign="center center" class="drag-container" dragula="devices" [(dragulaModel)]="zone.devices[type]" (dragulaModelChange)="saveZones()">
+        <div *ngFor="let device of zone.devices[type]">
+          <device-tile
+            class="device-container"
+            [device]="devices[device.id]"
+            [panelDevice]="device"
+            (singlePress)="toggle($event)"
+            (longPress)="openDeviceDetail($event)"
+            (verticalPanned)="onDimmed($event)">
+          </device-tile>
         </div>
       </span>
     </container-tile>

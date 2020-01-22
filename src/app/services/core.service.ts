@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HomeyApiService, HomeyCredentials } from './homey-api.service';
+import { HomeyApiService, HomeyCredentials, CHART_SLIDER as CS, UNIT_PERCENT as UP, UI_SLIDER as US } from './homey-api.service';
+
+export const CHART_SLIDER = CS;
+export const UNIT_PERCENT = UP;
+export const UI_SLIDER = US;
 
 /* Global Settings */
 export enum ConnexionTypes {
@@ -229,14 +233,22 @@ export class CoreService {
     localStorage.setItem(collection, JSON.stringify(item));
   }
 
-  async quickAction(device, panelDevice): Promise<void> {
+  async setCapability(device, panelDevice, capabilityId?: string, value?: number | boolean): Promise<void> {
     const homey = this.homeyAPI.getHomey();
     panelDevice.loading = true;
-    await homey.devices.setCapabilityValue({
-      deviceId: device.id,
-      capabilityId: device.ui.quickAction,
-      value: !device.capabilitiesObj[device.ui.quickAction].value
-    });
-    panelDevice.loading = false;
+    if (typeof value === 'undefined') {
+      value = !device.capabilitiesObj[capabilityId || device.ui.quickAction].value;
+    }
+    try {
+      await homey.devices.setCapabilityValue({
+        deviceId: device.id,
+        capabilityId: capabilityId || device.ui.quickAction,
+        value: value
+      });
+      panelDevice.loading = false;
+    } catch(e) {
+      // TODO Show error toast
+      panelDevice.loading = false;
+    }
   }
 }

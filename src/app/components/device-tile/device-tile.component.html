@@ -1,4 +1,21 @@
-<div fxLayout="column" [ngClass]="{'active': capabilities.onoff && capabilities.onoff.value, 'error': !device.ready}" longPress (onPress)="onPress($event)" (onLongPress)="onLongPress($event)" matRipple [matRippleDisabled]="!device.ready" matTooltip="{{ device.unavailableMessage }}">
+<div
+  class="tile-container"
+  fxLayout="column"
+  [ngClass]="{
+    'active': capabilities.onoff && capabilities.onoff.value,
+    'error': !device.ready,
+    'dimming': dimming !== -1
+  }"
+  matRipple
+  [matRippleDisabled]="!device.ready"
+  matTooltip="{{ device.unavailableMessage }}"
+  longPress
+  [horizontalPanningClass]="'device-handle'"
+  (onPress)="onPress($event)"
+  (onLongPress)="onLongPress($event)"
+  (onVerticalPanning)="onVerticalPanning($event)"
+  (onVerticalPanned)="onVerticalPanned($event)"
+  >
   <div class="loading-container" fxLayout="row" fxLayoutAlign="center center" *ngIf="panelDevice.loading">
     <mat-spinner [diameter]="40"></mat-spinner>
   </div>
@@ -6,11 +23,11 @@
     <div fxFlex="50" fxLayout="row" fxLayoutAlign="center center">
       <mat-icon svgIcon="{{ panelDevice.settings.icon }}"></mat-icon>
     </div>
-    <div fxFlex="50" fxLayout="column" fxLayoutAlign="center end">
+    <div fxFlex="50" fxLayout="column" fxLayoutAlign="center end" *ngIf="dimming === -1">
       <div *ngFor="let info of panelDevice.settings.info" fxLayout="column" fxLayoutAlign="end end" class="device-info">
         <div *ngIf="capabilities[info].type === 'number'" fxLayout="column" fxLayoutAlign="end end">
           <label class="info-title">{{ capabilities[info].title }}</label>
-          <app-number value="{{ getValue(info) }}" suffix="{{ capabilities[info].units }}" small="true"></app-number>
+          <app-number value="{{ getValue(info) }}" suffix="{{ capabilities[info].units || '%' }}" small="true"></app-number>
         </div>
         <div *ngIf="capabilities[info].type === 'boolean'" fxLayout="column" fxLayoutAlign="end end">
           <label class="info-title">{{ capabilities[info].title }}</label>
@@ -19,7 +36,12 @@
       </div>
     </div>
   </div>
-  <label class="title">
+  <label class="device-title">
+    <span class="device-handle"></span>
     {{ device.name }}
   </label>
+  <div fxLayout="column" fxLayoutAlign="center center " *ngIf="dimming !== -1" class="dimming-container" [ngStyle]="{ 'background' : dimmingBackground }">
+    <label>{{ capabilities[this.dimmable].title }}</label>
+    <app-number value="{{ dimming }}" suffix="{{ capabilities[this.dimmable].units || '%' }}" [forceDecimal]="true"></app-number>
+  </div>
 </div>
