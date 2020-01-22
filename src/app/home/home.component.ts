@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
-import { CoreService, PanelZone, PanelDevice } from '../services/core.service';
+import { DragulaService } from 'ng2-dragula';
+import { CoreService, PanelZone } from '../services/core.service';
 import { DeviceDetailComponent } from '../components/device-detail/device-detail.component';
 
 @Component({
@@ -13,24 +13,30 @@ export class HomeComponent implements OnInit {
   zones;
   devices;
   panelZones: PanelZone[];
+  // TODO allow users to change devices type to be shown
   type = 'action';
 
-  constructor(private core: CoreService, private dialog: MatDialog) { }
+  constructor(private core: CoreService, private dialog: MatDialog, private dragulaService: DragulaService) { }
 
   async ngOnInit(): Promise<void> {
     this.zones = await this.core.getZones();
     this.devices = await this.core.getDevices();
     this.panelZones = this.core.getPanelZones();
+    this.dragulaService.createGroup('zones', {
+      invalid: (el) => el.tagName === 'DEVICE-TILE'
+    });
+    this.dragulaService.createGroup('devices', {
+      invalid: (el, handle) => handle.className !== 'device-handle'
+    });
   }
 
-  drop(event: CdkDragDrop<string[]>, array: PanelZone[] | PanelDevice[]): void {
-    moveItemInArray(array, event.previousIndex, event.currentIndex);
+  saveZones(): void {
     this.core.save('panelZones', this.panelZones);
   }
 
   async toggle(event): Promise<void> {
     if (event.device.ready) {
-      await this.core.quickAction(event.device, event.panelDevice);
+      await this.core.setCapability(event.device, event.panelDevice);
     }
   }
 
@@ -50,6 +56,13 @@ export class HomeComponent implements OnInit {
         }
       });
     }
+  }
+
+  async onDimmed(event): Promise<void> {
+    if (event.device.ready) {
+      await this.core.setCapability(event.device, event.panelDevice, event.dimming.capability, event.dimming.value);
+    }
+
   }
 
 }
