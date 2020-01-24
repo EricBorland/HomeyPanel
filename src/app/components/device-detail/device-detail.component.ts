@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { DragulaService } from 'ng2-dragula';
 import { PanelDevice, PanelSettings } from '../../services/core.service';
 import { icons } from  '../../../assets/icons.json';
 
@@ -24,12 +24,22 @@ export class DeviceDetailComponent {
 
   constructor(
     public dialogRef: MatDialogRef<DeviceDetailComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DeviceDetailData
+    @Inject(MAT_DIALOG_DATA) public data: DeviceDetailData,
+    private dragulaService: DragulaService
   ) {
-    this.settings = JSON.parse(JSON.stringify(data.panelDevice.settings));
+    this.settings = JSON.parse(JSON.stringify(data.panelDevice.settings || '{}'));
+    this.settings.info = this.settings.info || [];
     this.availableCapabilities = data.device.capabilities.filter(capability => !this.settings.info.includes(capability) && data.device.capabilitiesObj[capability].getable);
     this.icons = [];
     this.throttle(this.icons, icons);
+    dragulaService.destroy('capabilities'); // Group must be destroyed since it's persistant between dialogs
+    dragulaService.createGroup('capabilities', {
+      accepts: this.acceptMoreCapabilities.bind(this)
+    });
+  }
+
+  acceptMoreCapabilities(el, target): boolean {
+    return target && target.id !== 'selectedCapabilities' || this.settings.info.length < 3;
   }
 
   close(): void {
@@ -56,19 +66,8 @@ export class DeviceDetailComponent {
     });
   }
 
-  drop(event: CdkDragDrop<string[]>): void {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex);
-    }
-  }
-
-  roomForMoreCapabilities(): boolean {
-    return this.settings && this.settings.info && this.settings.info.length < 3;
+  roomForMoreCapabilities(targetId?: string): boolean {
+    return targetId !== 'selectedCapabilities' || this.settings && this.settings.info && this.settings.info.length < 3;
   }
 
   trackBy(index: number): number {

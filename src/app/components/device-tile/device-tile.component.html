@@ -2,7 +2,7 @@
   class="tile-container"
   fxLayout="column"
   [ngClass]="{
-    'active': capabilities.onoff && capabilities.onoff.value,
+    'active': capabilities && capabilities.onoff && capabilities.onoff.value,
     'error': !device.ready,
     'dimming': dimming !== -1
   }"
