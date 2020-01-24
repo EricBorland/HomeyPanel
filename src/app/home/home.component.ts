@@ -16,18 +16,23 @@ export class HomeComponent implements OnInit {
   // TODO allow users to change devices type to be shown
   type = 'action';
 
-  constructor(private core: CoreService, private dialog: MatDialog, private dragulaService: DragulaService) { }
+  constructor(
+    private core: CoreService,
+    private dialog: MatDialog,
+    private dragulaService: DragulaService
+  ) {
+    dragulaService.createGroup('zones', {
+      invalid: (el) => el.tagName === 'DEVICE-TILE'
+    });
+    dragulaService.createGroup('devices', {
+      invalid: (el, handle) => handle.className !== 'device-handle'
+    });
+  }
 
   async ngOnInit(): Promise<void> {
     this.zones = await this.core.getZones();
     this.devices = await this.core.getDevices();
     this.panelZones = this.core.getPanelZones();
-    this.dragulaService.createGroup('zones', {
-      invalid: (el) => el.tagName === 'DEVICE-TILE'
-    });
-    this.dragulaService.createGroup('devices', {
-      invalid: (el, handle) => handle.className !== 'device-handle'
-    });
   }
 
   saveZones(): void {
