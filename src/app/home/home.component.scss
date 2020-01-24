@@ -12,13 +12,3 @@
     display: block;
   }
 }
-.drag-container {
-  overflow: hidden;
-}
-.cdk-drag-placeholder {
-  opacity: 0;
-}
-.cdk-drag-animating,
-.drag-container.cdk-drop-list-dragging .drag-content:not(.cdk-drag-placeholder) {
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-}

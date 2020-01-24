@@ -1,7 +1,11 @@
-// Custom Angular Material Theming
+// Libraries imports
 @import '~@angular/material/theming';
+@import '~dragula/dist/dragula.css';
+
+// Components
 @import './app/components/device-detail/device-detail.theme';
 @import './app/components/device-tile/device-tile.theme';
+
 @include mat-core();
 $primary-palette: (
   50: #f1feff,
@@ -36,35 +40,35 @@ $primary-palette: (
   )
 );
 $secondary-palette: (
-  50: #fff9e0,
-  100: #fff1b3,
-  200: #ffe880,
-  300: #ffdf4d,
-  400: #ffd826,
-  500: #ffd100,
-  600: #ffcc00,
-  700: #ffc600,
-  800: #ffc000,
-  900: #ffb500,
+  50: #fff1e0,
+  100: #ffdbb3,
+  200: #ffc380,
+  300: #ffab4d,
+  400: #ff9926,
+  500: #ff8700,
+  600: #ff7f00,
+  700: #ff7400,
+  800: #ff6a00,
+  900: #ff5700,
   A100: #ffffff,
-  A200: #fffbf2,
-  A400: #ffeabf,
-  A700: #ffe2a6,
+  A200: #fff6f2,
+  A400: #ffd1bf,
+  A700: #ffbfa6,
   contrast: (
-      50: $black-87-opacity,
-      100: $black-87-opacity,
-      200: $black-87-opacity,
-      300: $black-87-opacity,
-      400: $black-87-opacity,
-      500: $black-87-opacity,
-      600: $black-87-opacity,
-      700: $black-87-opacity,
-      800: $black-87-opacity,
-      900: $black-87-opacity,
-      A100: $black-87-opacity,
-      A200: $black-87-opacity,
-      A400: $black-87-opacity,
-      A700: $black-87-opacity,
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: $black-87-opacity,
+    400: $black-87-opacity,
+    500: $black-87-opacity,
+    600: $black-87-opacity,
+    700: $black-87-opacity,
+    800: $black-87-opacity,
+    900: $black-87-opacity,
+    A100: $black-87-opacity,
+    A200: $black-87-opacity,
+    A400: $black-87-opacity,
+    A700: $black-87-opacity,
   )
 );
 $homey-panel-primary: mat-palette($primary-palette);

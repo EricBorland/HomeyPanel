@@ -4,6 +4,10 @@ declare const AthomCloudAPI: any;
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+export const CHART_SLIDER = 'stepLine';
+export const UNIT_PERCENT = '%';
+export const UI_SLIDER = 'slider';
+
 const MAX_LISTENERS = 100;
 
 export interface HomeyCredentials {
