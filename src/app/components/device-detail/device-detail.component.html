@@ -19,8 +19,8 @@
       <label> Side info capabilities
         <span> ({{ settings.info.length }}/ 3)</span>
       </label>
-      <div id="selectedCapabilities" fxLayout="column" class="capabilities-container" cdkDropList (cdkDropListDropped)="drop($event)" cdkDropListConnectedTo="availableCapabilities" [cdkDropListData]="settings.info" [cdkDropListEnterPredicate]="roomForMoreCapabilities.bind(this)">
-        <div class="selected-capability" *ngFor="let capability of settings.info; index as i" cdkDrag [cdkDragData]="capability" cdkDragLockAxis="y" fxLayout="row">
+      <div id="selectedCapabilities" fxLayout="column" class="capabilities-container" dragula="capabilities" [(dragulaModel)]="settings.info">
+        <div class="selected-capability" *ngFor="let capability of settings.info; index as i" fxLayout="row">
           {{ data.device.capabilitiesObj[capability].title }}
           <span *ngIf="data.device.capabilitiesObj[capability].units">
             ({{ data.device.capabilitiesObj[capability].units }})
@@ -33,14 +33,14 @@
         </div>
       </div>
       <label class="available-capabilities"> Available capabilities </label>
-      <div id="availableCapabilities" fxLayout="column" class="capabilities-container" cdkDropList (cdkDropListDropped)="drop($event)" cdkDropListConnectedTo="selectedCapabilities" [cdkDropListData]="availableCapabilities">
-        <div class="available-capability" *ngFor="let capability of availableCapabilities; index as i" cdkDrag [cdkDragData]="capability" cdkDragLockAxis="y" fxLayout="row">
+      <div id="availableCapabilities" fxLayout="column" class="capabilities-container" dragula="capabilities" [(dragulaModel)]="availableCapabilities">
+        <div class="available-capability" *ngFor="let capability of availableCapabilities; index as i" fxLayout="row">
           {{ data.device.capabilitiesObj[capability].title }}
           <span *ngIf="data.device.capabilitiesObj[capability].units">
             ({{ data.device.capabilitiesObj[capability].units }})
           </span>
           <span fxFlex></span>
-          <mat-icon svgIcon="mdi-plus-circle" *ngIf="roomForMoreCapabilities()" (click)="transfer(availableCapabilities, settings.info, i)"></mat-icon>
+          <mat-icon svgIcon="mdi-plus-circle" *ngIf="acceptMoreCapabilities()" (click)="transfer(availableCapabilities, settings.info, i)"></mat-icon>
         </div>
         <div class="available-capability" *ngIf="!availableCapabilities.length">
           Without available capabilities

@@ -72,16 +72,3 @@
 .available-capability {
   padding: 8px 10px;
 }
-.cdk-drag-placeholder {
-  opacity: 0;
-}
-.cdk-drag-animating,
-.capabilities-container.cdk-drop-list-dragging .selected-capability:not(.cdk-drag-placeholder),
-.capabilities-container.cdk-drop-list-dragging .available-capability:not(.cdk-drag-placeholder) {
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-}
-.cdk-drag-preview {
-  .mat-icon {
-    display: none;
-  }
-}
