@@ -13,8 +13,6 @@ export class HomeComponent implements OnInit {
   zones;
   devices;
   panelZones: PanelZone[];
-  // TODO allow users to change devices type to be shown
-  type = 'action';
 
   constructor(
     private core: CoreService,
@@ -30,8 +28,8 @@ export class HomeComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    this.zones = await this.core.getZones();
-    this.devices = await this.core.getDevices();
+    this.zones = this.core.getZones();
+    this.devices = this.core.getDevices();
     this.panelZones = this.core.getPanelZones();
   }
 
