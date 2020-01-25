@@ -108,9 +108,10 @@ export class CoreService {
     // Get current devices and zones from Homey
     this.zones = await this.homeyAPI.getZones();
     this.devices = await this.homeyAPI.getDevices();
-    // Restart the panelZonesMap
+    const parsedDevices = {};
     for (const id in this.devices) {
       const device = this.devices[id];
+      parsedDevices[id] = true;
       // Initialize zone
       const zone = (this.panelZones || [] as any).find(zone => zone.id === device.zone) || {
         new: true,
@@ -123,7 +124,9 @@ export class CoreService {
           alarm: [],
           temperature: [],
           other: []
-        }
+        },
+        // TODO allow users to change devices type to be shown
+        type: 'action'
       };
       // Updating device
       device.type = this.getDeviceType(device) || 'other';
@@ -158,6 +161,20 @@ export class CoreService {
         this.panelZones.push(zone);
       }
     }
+    this.cleanRemovedDevices(parsedDevices);
+  }
+
+  cleanRemovedDevices(parsedDevices): void {
+    this.panelZones.forEach(zone => {
+      for (const type in zone.devices) {
+        for (let  i = zone.devices[type].length - 1; i >= 0; --i) {
+          const device = zone.devices[type][i];
+          if (!parsedDevices[device.id]) {
+            zone.devices[type].splice(i, 1);
+          }
+        }
+      }
+    });
   }
 
   getDeviceType(device): string {
