@@ -6,7 +6,7 @@
         <app-number value="{{zone.getTemperature()}}" suffix="ºC"></app-number>
         <span class="iconify" data-icon="mdi-account"></span>
       </span>
-      <span tile-content fxLayout="row wrap" fxLayoutAlign="center center" dragula="devices" [(dragulaModel)]="zone.devices[zone.type || 'action']" (dragulaModelChange)="saveZones()">
+      <span [id]="'devices-container-' + zone.id" tile-content fxLayout="row wrap" fxLayoutAlign="center center" dragula="devices" [(dragulaModel)]="zone.devices[zone.type || 'action']" (dragulaModelChange)="saveZones()">
         <div *ngFor="let device of zone.devices[zone.type || 'action']">
           <device-tile
             class="device-container"

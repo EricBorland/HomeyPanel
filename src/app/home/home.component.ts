@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
       invalid: (el) => el.tagName === 'DEVICE-TILE'
     });
     dragulaService.createGroup('devices', {
+      accepts: (el, target, source) => target.id === source.id,
       invalid: (el, handle) => handle.className !== 'device-handle'
     });
   }
