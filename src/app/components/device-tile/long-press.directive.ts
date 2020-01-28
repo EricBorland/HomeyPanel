@@ -67,13 +67,15 @@ export class LongPressDirective implements AfterContentChecked {
   @HostListener('mouseleave', ['$event'])
   @HostListener('mousemove', ['$event'])
   endPress(event): void {
-    clearTimeout(this.timeout);
-    clearInterval(this.interval);
-    if (this.pressing && !this.longPressing && event.type !== 'mousemove') {
-      this.onPress.emit(event);
+    if (this.swiping === NO_SWIPING) {
+      clearTimeout(this.timeout);
+      clearInterval(this.interval);
+      if (this.pressing && !this.longPressing && event.type !== 'mousemove') {
+        this.onPress.emit(event);
+      }
+      this.longPressing = false;
+      this.pressing = false;
     }
-    this.longPressing = false;
-    this.pressing = false;
   }
 
   constructor(private element: ElementRef) {
