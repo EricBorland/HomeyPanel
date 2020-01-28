@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DragulaService } from 'ng2-dragula';
 import { PanelDevice, PanelSettings } from '../../services/core.service';
@@ -14,13 +14,14 @@ export interface DeviceDetailData {
   templateUrl: './device-detail.component.html',
   styleUrls: ['./device-detail.component.scss']
 })
-export class DeviceDetailComponent {
+export class DeviceDetailComponent implements OnDestroy {
 
   settings: PanelSettings;
   icons: string[];
   availableCapabilities: string[];
   iconFilter: string;
   filtering;
+  throttling;
 
   constructor(
     public dialogRef: MatDialogRef<DeviceDetailComponent>,
@@ -38,7 +39,7 @@ export class DeviceDetailComponent {
     });
   }
 
-  acceptMoreCapabilities(el, target): boolean {
+  acceptMoreCapabilities(el?, target?): boolean {
     return target && target.id !== 'selectedCapabilities' || this.settings.info.length < 3;
   }
 
@@ -59,9 +60,10 @@ export class DeviceDetailComponent {
   }
 
   throttle(array, items, index = 0): void {
+    if (this.throttling) clearTimeout(this.throttling);
     if (!items[index]) return;
     array.push(items[index]);
-    setTimeout(() => {
+    this.throttling = setTimeout(() => {
       this.throttle(array, items, index + 1);
     });
   }
@@ -79,6 +81,11 @@ export class DeviceDetailComponent {
       to.push(from[index]);
       from.splice(index, 1);
     }
+  }
+
+  ngOnDestroy(): void {
+    if (this.filtering) clearTimeout(this.filtering);
+    if (this.throttling) clearTimeout(this.throttling);
   }
 
 }

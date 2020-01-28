@@ -2,7 +2,7 @@
   "name": "homey-panel",
   "version": "0.1.1",
   "scripts": {
-    "build": "ng build",
+    "build": "ng build --prod=true",
     "e2e": "ng e2e",
     "eslint": "eslint src e2e --ext .ts --fix",
     "generate-icon-json": "cat src/assets/icons.svg | awk -F\"id=\" '{print $2}' | cut -f1 -d' ' | grep . | awk ' BEGIN { ORS = \"\"; print \"{ \\\"icons\\\": [\"; } { print $0\",\"; } END { print \"] }\"; }' | sed \"s/,]/]/\" > src/assets/icons.json",
