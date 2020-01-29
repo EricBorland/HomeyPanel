@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/EricBorland/HomeyPanel/compare/v0.1.1...v0.2.0) (2020-01-29)
+
+
+### Features
+
+* **device-tile:** dimmable gesture ([137526e](https://github.com/EricBorland/HomeyPanel/commit/137526e4827e2b03402cbbebea7c4b0a71a5e712))
+* **device-tile:** properly show unavailable devices ([2ac2d80](https://github.com/EricBorland/HomeyPanel/commit/2ac2d809bf8841983f927f33f433d3a90c4ae3e0))
+
+
+### Bug Fixes
+
+* **device-detail:** always allow adding or removing capabilities ([e7ca554](https://github.com/EricBorland/HomeyPanel/commit/e7ca55434891b78c77327b13402d3a5dbce8dcb8))
+* **home:** avoid dropping devices to other zones ([8387a74](https://github.com/EricBorland/HomeyPanel/commit/8387a743cc5a82cbbbd55e5f8f1540c1e0672e5b))
+* **panelZones:** properly sync removed devices ([a7d6a76](https://github.com/EricBorland/HomeyPanel/commit/a7d6a76d0c3ef54e3ee210cd923967dd10be52ca))
+* **panelZones:** sync device movements between zones ([45c582f](https://github.com/EricBorland/HomeyPanel/commit/45c582f7b35db24a4ca60407b5abac1dd826b904))
+
 ### 0.1.1 (2020-01-20)
 
 
