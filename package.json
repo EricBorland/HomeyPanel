@@ -1,6 +1,6 @@
 {
   "name": "homey-panel",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "scripts": {
     "build": "ng build --prod=true",
     "e2e": "ng e2e",
