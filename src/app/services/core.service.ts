@@ -111,7 +111,8 @@ export class CoreService {
     const parsedDevices = {};
     for (const id in this.devices) {
       const device = this.devices[id];
-      parsedDevices[id] = true;
+      parsedDevices[device.zone] = parsedDevices[device.zone] || {}
+      parsedDevices[device.zone][id] = true;
       // Initialize zone
       const zone = (this.panelZones || [] as any).find(zone => zone.id === device.zone) || {
         new: true,
@@ -169,7 +170,7 @@ export class CoreService {
       for (const type in zone.devices) {
         for (let  i = zone.devices[type].length - 1; i >= 0; --i) {
           const device = zone.devices[type][i];
-          if (!parsedDevices[device.id]) {
+          if (!parsedDevices[zone.id][device.id]) {
             zone.devices[type].splice(i, 1);
           }
         }
@@ -188,7 +189,7 @@ export class CoreService {
     }
   }
 
-  // TODO Find device in other zones also and handle device zone changes
+  // TODO Find device in other zones and types to keep the settings
   findCurrentDevice(deviceId, zone): void | CurrentDevice {
     if (!zone) {
       return;
