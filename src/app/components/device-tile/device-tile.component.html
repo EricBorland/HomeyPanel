@@ -2,12 +2,12 @@
   class="tile-container"
   fxLayout="column"
   [ngClass]="{
-    'active': capabilities.onoff && capabilities.onoff.value,
-    'error': !device.ready,
+    'active': capabilities[toggleable] && capabilities[toggleable].value,
+    'error': !device.ready || !device.available,
     'dimming': dimming !== -1
   }"
   matRipple
-  [matRippleDisabled]="!device.ready"
+  [matRippleDisabled]="!device.ready || !device.available"
   matTooltip="{{ device.unavailableMessage }}"
   longPress
   [horizontalPanningClass]="'device-handle'"
@@ -32,6 +32,10 @@
         <div *ngIf="capabilities[info].type === 'boolean'" fxLayout="column" fxLayoutAlign="end end">
           <label class="info-title">{{ capabilities[info].title }}</label>
           <mat-slide-toggle class="mat-slide-toggle-mini" [checked]="capabilities[info].value" [disabled]="true"></mat-slide-toggle>
+        </div>
+        <div *ngIf="capabilities[info].type === 'string'" fxLayout="column" fxLayoutAlign="end end">
+          <label class="info-title">{{ capabilities[info].title }}</label>
+          {{ capabilities[info].value || '-' }}
         </div>
       </div>
     </div>
