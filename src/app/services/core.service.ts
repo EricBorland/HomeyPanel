@@ -67,6 +67,7 @@ const DEFAULT_ICONS = {
   'action-heater': 'heating-001-heater',
   'action-tv': 'home-living-043-television',
   'action-homealarm': 'home-living-056-siren',
+  'action-speaker': 'music-028-speaker-1',
   'action.button': ''
 };
 const DEFAULT_INFO = {
@@ -180,7 +181,7 @@ export class CoreService {
 
   getDeviceType(device): string {
     // TODO Allow multiple types per device
-    if (device.capabilities.includes('onoff') || device.capabilities.includes('button') || device.capabilities.includes('dim')) {
+    if (device.ui && device.ui.quickAction) {
       return 'action';
     } else if (device.capabilities.includes('measure_temperature') || device.capabilities.includes('target_temperature')) {
       return 'temperature';

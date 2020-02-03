@@ -35,6 +35,7 @@ export class DeviceTileComponent implements OnInit {
   @Output() horizontalPanned = new EventEmitter();
 
   capabilities;
+  toggleable = '';
   dimmable = '';
   dimming = -1;
   dimmingBackground = '';
@@ -45,8 +46,9 @@ export class DeviceTileComponent implements OnInit {
       this.capabilities[capability] = this.capabilities[capability] || {};
       this.capabilities[capability].scale = 100 / (this.capabilities[capability].max - this.capabilities[capability].min);
     });
+    this.toggleable = this.device.ui && this.device.ui.quickAction;
     const dimmable = (this.device.ui.components || []).find(component => component.id === UI_SLIDER);
-    if (dimmable && this.device.ready) {
+    if (dimmable && this.device.ready && this.device.available) {
       this.dimmable = DimmableCapability[Math.min(...dimmable.capabilities.map(capability => DimmableCapability[capability]))];
     }
   }

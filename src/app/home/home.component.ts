@@ -39,13 +39,13 @@ export class HomeComponent implements OnInit {
   }
 
   async toggle(event): Promise<void> {
-    if (event.device.ready) {
+    if (event.device.ready && event.device.available) {
       await this.core.setCapability(event.device, event.panelDevice);
     }
   }
 
   openDeviceDetail(event): void {
-    if (event.device.ready) {
+    if (event.device.ready && event.device.available) {
       const dialog = this.dialog.open(DeviceDetailComponent, {
         data: {
           device: event.device,
@@ -63,7 +63,7 @@ export class HomeComponent implements OnInit {
   }
 
   async onDimmed(event): Promise<void> {
-    if (event.device.ready) {
+    if (event.device.ready && event.device.available) {
       await this.core.setCapability(event.device, event.panelDevice, event.dimming.capability, event.dimming.value);
     }
 
