@@ -9,7 +9,7 @@ const ONE_SECOND = 1000;
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  now: number;
+  now: number = Date.now();
   weatherSettings: DarkSkySettings;
 
   constructor(

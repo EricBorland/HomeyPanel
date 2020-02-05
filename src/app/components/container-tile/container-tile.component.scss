@@ -46,4 +46,8 @@ $innerPadding: 16px;
       }
     }
   }
+  &::ng-deep .mat-list.expanded-list {
+    margin-left: #{-$innerPadding * 0.5};
+    width: calc(100% + #{$innerPadding});
+  }
 }

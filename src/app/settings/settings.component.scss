@@ -1,0 +1,23 @@
+:host {
+  .mat-list {
+    padding-top: 0px;
+  }
+  .mat-list-item {
+    cursor: pointer;
+  }
+  .mat-line {
+    opacity: 0.75;
+    font-size: 0.8rem;
+    &.mat-line-title {
+      font-size: 1.1rem;
+      opacity: 1;
+    }
+  }
+  .mat-divider {
+    border: 0.5px solid;
+    opacity: 0.75;
+  }
+  .zone-handle {
+    cursor: grab;
+  }
+}

@@ -12,28 +12,32 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { SetupComponent } from './setup/setup.component';
+import { HeaderComponent } from './header/header.component';
+import { WeatherComponent } from './components/weather/weather.component';
+import { MenuComponent } from './menu/menu.component';
 import { HomeComponent } from './home/home.component';
 import { ContainerTileComponent } from './components/container-tile/container-tile.component';
 import { NumberComponent } from './components/number/number.component';
 import { LongPressDirective } from './components/device-tile/long-press.directive';
 import { DeviceTileComponent } from './components/device-tile/device-tile.component';
 import { DeviceDetailComponent } from './components/device-detail/device-detail.component';
-import { HeaderComponent } from './header/header.component';
-import { WeatherComponent } from './components/weather/weather.component';
+import { SettingsComponent } from './settings/settings.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     SetupComponent,
+    HeaderComponent,
+    MenuComponent,
+    WeatherComponent,
     HomeComponent,
     ContainerTileComponent,
     LongPressDirective,
     DeviceTileComponent,
     DeviceDetailComponent,
     NumberComponent,
-    HeaderComponent,
-    WeatherComponent
+    SettingsComponent
   ],
   imports: [
     AppRoutingModule,

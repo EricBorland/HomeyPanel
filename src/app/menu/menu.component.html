@@ -1,0 +1,15 @@
+<div fxLayout="row" fxLayoutAlign="end end">
+  <span class="border" fxFlex>
+    <span *ngIf="!settings.panel || !settings.panel.headerVisible" class="time">
+      {{ now | date: 'medium' }}
+    </span>
+  </span>
+  <div class="section" [ngClass]="{ 'active': section === '/home' }" fxLayoutAlign="center center" [routerLink]="['/home']">
+    <mat-icon svgIcon="mdi-home"></mat-icon>
+    Home
+  </div>
+  <div class="section" [ngClass]="{ 'active': section === '/settings' }" fxLayoutAlign="center center" [routerLink]="['/settings']">
+    <mat-icon svgIcon="mdi-settings"></mat-icon>
+    Settings
+  </div>
+</div>
