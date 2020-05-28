@@ -1,12 +1,11 @@
-<router-outlet name="header"></router-outlet>
-<div fxLayout="row wrap" fxLayoutAlign="center" *ngIf="panelZones && panelZones.length" class="home-content" dragula="zones" [(dragulaModel)]="panelZones" (dragulaModelChange)="saveZones()">
+<div fxLayout="row wrap" fxLayoutAlign="center" *ngIf="panelZones && panelZones.length" class="home-content" [dragula]="dragSorting && 'zones' || ''" [(dragulaModel)]="panelZones" (dragulaModelChange)="saveZones()">
   <div *ngFor="let zone of panelZones" class="zone-container">
-    <container-tile title="{{zones[zone.id].name}}" subtitle="{{zone.temperature}}">
+    <container-tile title="{{zones[zone.id].name}}" subtitle="{{zone.temperature}}" *ngIf="zone.settings.visible !== false">
       <span tile-subtitle *ngIf="zone.getTemperature">
         <app-number value="{{zone.getTemperature()}}" suffix="ºC"></app-number>
         <span class="iconify" data-icon="mdi-account"></span>
       </span>
-      <span [id]="'devices-container-' + zone.id" tile-content fxLayout="row wrap" fxLayoutAlign="center center" dragula="devices" [(dragulaModel)]="zone.devices[zone.type || 'action']" (dragulaModelChange)="saveZones()">
+      <span [id]="'devices-container-' + zone.id" tile-content fxLayout="row wrap" fxLayoutAlign="center center" [dragula]="dragSorting && 'devices' || ''" [(dragulaModel)]="zone.devices[zone.type || 'action']" (dragulaModelChange)="saveZones()">
         <div *ngFor="let device of zone.devices[zone.type || 'action']">
           <device-tile
             class="device-container"

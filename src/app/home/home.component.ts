@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DragulaService } from 'ng2-dragula';
 import { CoreService, PanelZone } from '../services/core.service';
@@ -9,7 +9,8 @@ import { DeviceDetailComponent } from '../components/device-detail/device-detail
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
+  dragSorting = true;
   zones;
   devices;
   panelZones: PanelZone[];
@@ -19,13 +20,17 @@ export class HomeComponent implements OnInit {
     private dialog: MatDialog,
     private dragulaService: DragulaService
   ) {
-    dragulaService.createGroup('zones', {
-      invalid: (el) => el.tagName === 'DEVICE-TILE'
-    });
-    dragulaService.createGroup('devices', {
-      accepts: (el, target, source) => target.id === source.id,
-      invalid: (el, handle) => handle.className !== 'device-handle'
-    });
+    const settings = core.getSettings();
+    this.dragSorting = !!(settings.panel && settings.panel.dragAndDropSorting);
+    if (this.dragSorting) {
+      dragulaService.createGroup('zones', {
+        invalid: (el) => el.tagName === 'DEVICE-TILE'
+      });
+      dragulaService.createGroup('devices', {
+        accepts: (el, target, source) => target.id === source.id,
+        invalid: (el, handle) => handle.className !== 'device-handle'
+      });
+    }
   }
 
   async ngOnInit(): Promise<void> {
@@ -66,7 +71,11 @@ export class HomeComponent implements OnInit {
     if (event.device.ready && event.device.available) {
       await this.core.setCapability(event.device, event.panelDevice, event.dimming.capability, event.dimming.value);
     }
+  }
 
+  ngOnDestroy(): void {
+    this.dragulaService.destroy('zones');
+    this.dragulaService.destroy('devices');
   }
 
 }

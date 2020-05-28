@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DragulaService } from 'ng2-dragula';
-import { PanelDevice, PanelSettings } from '../../services/core.service';
+import { PanelDevice, CommonSettings } from '../../services/core.service';
 import { icons } from  '../../../assets/icons.json';
 
 export interface DeviceDetailData {
@@ -16,7 +16,7 @@ export interface DeviceDetailData {
 })
 export class DeviceDetailComponent implements OnDestroy {
 
-  settings: PanelSettings;
+  settings: CommonSettings;
   icons: string[];
   availableCapabilities: string[];
   iconFilter: string;
@@ -33,7 +33,6 @@ export class DeviceDetailComponent implements OnDestroy {
     this.availableCapabilities = data.device.capabilities.filter(capability => !this.settings.info.includes(capability) && data.device.capabilitiesObj[capability].getable);
     this.icons = [];
     this.throttle(this.icons, icons);
-    dragulaService.destroy('capabilities'); // Group must be destroyed since it's persistant between dialogs
     dragulaService.createGroup('capabilities', {
       accepts: this.acceptMoreCapabilities.bind(this)
     });
@@ -86,6 +85,7 @@ export class DeviceDetailComponent implements OnDestroy {
   ngOnDestroy(): void {
     if (this.filtering) clearTimeout(this.filtering);
     if (this.throttling) clearTimeout(this.throttling);
+    this.dragulaService.destroy('capabilities');
   }
 
 }

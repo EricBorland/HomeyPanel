@@ -3,6 +3,8 @@
   "version": "0.2.0",
   "scripts": {
     "build": "ng build --prod=true",
+    "predeploy": "npm run build",
+    "deploy": "aws s3 sync ./dist/homey-panel s3://homey.panel/ --acl public-read",
     "e2e": "ng e2e",
     "eslint": "eslint src e2e --ext .ts --fix",
     "generate-icon-json": "cat src/assets/icons.svg | awk -F\"id=\" '{print $2}' | cut -f1 -d' ' | grep . | awk ' BEGIN { ORS = \"\"; print \"{ \\\"icons\\\": [\"; } { print $0\",\"; } END { print \"] }\"; }' | sed \"s/,]/]/\" > src/assets/icons.json",

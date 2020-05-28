@@ -1,0 +1,42 @@
+<div fxLayout="column">
+  <!--
+  <container-tile title="Homey configuration">
+  </container-tile>
+  <container-tile title="DarkSky configuration">
+  </container-tile>
+  -->
+  <container-tile title="Panel configuration">
+    <span tile-content fxLayout="column">
+      <mat-list class="expanded-list">
+        <mat-list-item (click)="toggleSetting(settings.panel, 'headerVisible')" matRipple>
+          <p class="mat-line-title" mat-line> Show Header </p>
+          <p mat-line> Hiding the header is recommended for lower resolution devices </p>
+          <span (click)="$event.stopPropagation()">
+            <mat-slide-toggle [checked]="settings.panel && settings.panel.headerVisible" (change)="toggleSetting(settings.panel, 'headerVisible')"></mat-slide-toggle>
+          </span>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item (click)="toggleSetting(settings.panel, 'dragAndDropSorting')" matRipple>
+          <p class="mat-line-title" mat-line> Dran&Drop Sorting</p>
+          <p mat-line> Desactivate drag&drop zone/device sorting when experiencing performance issues </p>
+          <span (click)="$event.stopPropagation()">
+            <mat-slide-toggle [checked]="settings.panel && settings.panel.dragAndDropSorting" (change)="toggleSetting(settings.panel, 'dragAndDropSorting')"></mat-slide-toggle>
+          </span>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <h3 mat-subheader>Zones</h3>
+        <span dragula="zones" [(dragulaModel)]="panelZones" (dragulaModelChange)="saveZones()">
+          <mat-list-item *ngFor="let zone of panelZones" matRipple (click)="toggleSetting(zone.settings, 'visible'); $event.stopPropagation()">
+            <mat-icon svgIcon="mdi-drag-vertical" class="zone-handle"></mat-icon>
+            {{ zones[zone.id].name }}
+            <span fxFlex></span>
+            <button mat-mini-fab (click)="toggleSetting(zone.settings, 'visible'); $event.stopPropagation()" color="{{ zone.settings.visible !== false ? 'primary' : '' }}">
+              <mat-icon svgIcon="mdi-eye" *ngIf="zone.settings.visible !== false"></mat-icon>
+              <mat-icon svgIcon="mdi-eye-off" *ngIf="zone.settings.visible === false"></mat-icon>
+            </button>
+          </mat-list-item>
+        </span>
+      </mat-list>
+    </span>
+  </container-tile>
+</div>

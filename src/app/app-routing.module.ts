@@ -1,19 +1,47 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SetupComponent } from './setup/setup.component';
-import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
+import { MenuComponent } from './menu/menu.component';
+import { HomeComponent } from './home/home.component';
+import { SettingsComponent } from './settings/settings.component';
 
 const routes: Routes = [{
   path: 'setup',
-  component: SetupComponent
+  children: [{
+    path: '',
+    outlet: 'body',
+    component: SetupComponent
+  }]
 }, {
   path: 'home',
-  component: HomeComponent,
   children: [{
     path: '',
     outlet: 'header',
     component: HeaderComponent
+  }, {
+    path: '',
+    outlet: 'menu',
+    component: MenuComponent
+  }, {
+    path: '',
+    outlet: 'body',
+    component: HomeComponent
+  }]
+}, {
+  path: 'settings',
+  children: [{
+    path: '',
+    outlet: 'header',
+    component: HeaderComponent
+  }, {
+    path: '',
+    outlet: 'menu',
+    component: MenuComponent
+  }, {
+    path: '',
+    outlet: 'body',
+    component: SettingsComponent
   }]
 }];
 

@@ -17,7 +17,7 @@ export class SetupComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.settings = {
+    this.settings = Object.assign({
       homey: {
         type: this.connexionTypes.Cloud,
         credentials: {
@@ -30,8 +30,12 @@ export class SetupComponent implements OnInit {
       darkSky: {
         apiKey: '',
         location: ''
+      },
+      panel: {
+        headerVisible: true,
+        dragAndDropSorting: true
       }
-    };
+    }, this.core.getSettings());
   }
 
   start(): void {

@@ -25,17 +25,24 @@ export interface HomeySettings {
 export interface GlobalSettings {
   homey: HomeySettings;
   darkSky: DarkSkySettings;
+  panel: PanelSettings;
 }
 
 /* Panel Settings */
-export interface PanelSettings {
+export interface CommonSettings {
   icon: string;
+  visible: boolean;
   info?: string[];
+}
+
+export interface PanelSettings {
+  headerVisible: boolean;
+  dragAndDropSorting: boolean;
 }
 
 export interface PanelDevice {
   id: string;
-  settings: PanelSettings;
+  settings: CommonSettings;
   loading?: boolean;
 }
 
@@ -47,7 +54,7 @@ export interface PanelZoneDevices {
 
 export interface PanelZone {
   id: string;
-  settings: PanelSettings;
+  settings: CommonSettings;
   devices: PanelZoneDevices;
   new?: boolean;
 }
@@ -119,7 +126,8 @@ export class CoreService {
         new: true,
         id: device.zone,
         settings: {
-          icon: DEFAULT_ICONS.DEFAULT_ZONE
+          icon: DEFAULT_ICONS.DEFAULT_ZONE,
+          visible: true
         },
         devices: {
           action: [],
@@ -127,7 +135,7 @@ export class CoreService {
           temperature: [],
           other: []
         },
-        // TODO allow users to change devices type to be shown
+        // TODO allow users to change devices type to be visiblen
         type: 'action'
       };
       // Updating device
@@ -139,6 +147,7 @@ export class CoreService {
           id: device.id,
           settings: {
             icon: DEFAULT_ICONS[device.type + '-' + (device.virtualClass || device.class)] || DEFAULT_ICONS.DEFAULT_DEVICE,
+            visible: true,
             info: (DEFAULT_INFO[device.virtualClass || device.class] || []).filter(info => device.capabilitiesObj[info])
           }
         });

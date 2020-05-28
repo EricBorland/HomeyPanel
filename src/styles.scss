@@ -5,6 +5,8 @@
 // Components
 @import './app/components/device-detail/device-detail.theme';
 @import './app/components/device-tile/device-tile.theme';
+@import './app/menu/menu.theme';
+@import './app/settings/settings.theme';
 
 @include mat-core();
 $primary-palette: (
@@ -81,6 +83,8 @@ $homey-panel-theme: mat-dark-theme($homey-panel-primary, $homey-panel-accent);
 /* TODO ADD ALL MISSING COMPONENTS */
 @include device-detail-theme($homey-panel-theme);
 @include device-tile-theme($homey-panel-theme);
+@include menu-theme($homey-panel-theme);
+@include settings-theme($homey-panel-theme);
 
 /* Current theme colors */
 $primary: mat-color($homey-panel-primary);
