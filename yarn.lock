@@ -5522,9 +5522,9 @@ lodash.transform@^4.6.0:
   integrity sha1-EjBkIvYzJK7YSD0/ODMrX2cFR6A=
 
 lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.4, lodash@^4.17.5:
-  version "4.17.15"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
-  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
+  version "4.17.19"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
+  integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
 
 log4js@^4.0.0:
   version "4.5.1"
@@ -6008,7 +6008,7 @@ ng2-charts@2.3.0:
     lodash "^4.17.11"
     tslib "^1.9.0"
 
-ng2-dragula@^2.1.1:
+ng2-dragula@2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/ng2-dragula/-/ng2-dragula-2.1.1.tgz#350e78978b6f7e1ea0b16c61ba78161c84ec6386"
   integrity sha512-PSo6N2Ja894KDogVLLBI0Hzpylikay7L1hWqp+qQmW+qsNsNT9J/6J2Qim9XwGzK4VQZjAwBJaJjgJ/TijRkLQ==
